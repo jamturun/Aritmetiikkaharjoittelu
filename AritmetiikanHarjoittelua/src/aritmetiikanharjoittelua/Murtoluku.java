@@ -1,4 +1,3 @@
-
 package aritmetiikanharjoittelua;
 
 public class Murtoluku {
@@ -38,12 +37,13 @@ public class Murtoluku {
     }
 
     public String toString() {
-        return osoittaja + "/" + nimittaja;
-    }
-
-    public double desimaalina() {
-        double desimaali = (double) osoittaja / nimittaja;
-        return desimaali;
+        if (nimittaja == 1) {
+            return osoittaja + "";
+        } else if (osoittaja != nimittaja) {
+            return osoittaja + "/" + nimittaja;
+        } else {
+            return osoittaja + "";
+        }
     }
 
     public Murtoluku lisaa(Murtoluku toinen) {
