@@ -10,10 +10,22 @@ public class Vahennyslasku implements Laskutoimitus {
         this.toka = toka;
     }
 
+    @Override
     public Murtoluku laske() {
         return eka.vahenna(toka);
     }
+    
+    @Override
+     public Murtoluku haeEka() {
+        return eka;
+    }
+    
+    @Override
+    public Murtoluku haeToka() {
+        return toka;
+    }
 
+    @Override
     public String toString() {
         if (toka.haeOsoittaja() < 0) {
             return eka.toString() + " - (" + toka.toString() + ")";

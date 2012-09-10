@@ -12,8 +12,19 @@ public class Yhteenlasku implements Laskutoimitus {
         this.toka = toka;
     }
 
+    @Override
     public Murtoluku laske() {
         return eka.lisaa(toka);
+    }
+    
+    @Override
+    public Murtoluku haeEka() {
+        return eka;
+    }
+    
+    @Override
+    public Murtoluku haeToka() {
+        return toka;
     }
 
     @Override

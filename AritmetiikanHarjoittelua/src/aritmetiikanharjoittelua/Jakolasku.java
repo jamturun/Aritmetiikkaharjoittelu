@@ -10,10 +10,22 @@ public class Jakolasku implements Laskutoimitus {
         this.toka = toka;
     }
 
+    @Override
     public Murtoluku laske() {
         return eka.jaa(toka);
     }
+    
+    @Override
+     public Murtoluku haeEka() {
+        return eka;
+    }
+    
+    @Override
+    public Murtoluku haeToka() {
+        return toka;
+    }
 
+    @Override
     public String toString() {
         if (eka.haeNimittaja() == 1 && toka.haeNimittaja() == 1) {
             return eka.toString() + " / " + toka.toString();

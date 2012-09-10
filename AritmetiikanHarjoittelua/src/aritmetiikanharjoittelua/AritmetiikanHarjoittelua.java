@@ -9,5 +9,7 @@ public class AritmetiikanHarjoittelua {
         
         Yhteenlasku summa = new Yhteenlasku(eka, toka);
         System.out.println(summa);
+        Harjoittelu harjoittelu = new Harjoittelu();
+        harjoittelu.harjoittele();
     }
 }
