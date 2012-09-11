@@ -7,9 +7,9 @@ public class Harjoittelu {
     public static Scanner input = new Scanner(System.in);
     private ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
     private boolean pelkatKokonaisluvut;
-    private boolean negatiiviLuvut;
-    private boolean vastausNegatiivinen;
-    private boolean vastausKokonaisluku;
+    private boolean negatiiviLuvutMukana;
+    private boolean salliNegatiivinenVastaus;
+    private boolean vainKokonaislukuVastaus;
     private int numerot;
 
     public int arvoLuvut() {
@@ -116,4 +116,50 @@ public class Harjoittelu {
         }
         return laskutoimitus;
     }
+    
+    public Laskutoimitus arvoSatunnainenLaskuKokonaisluvuilla() {
+        int kokonaisluku1 = arvoLuvut();
+        int kokonaisluku2 = arvoLuvut();
+        Murtoluku eka = new Murtoluku(kokonaisluku1);
+        Murtoluku toka = new Murtoluku(kokonaisluku2);
+        int toimitus = arvoLaskutoimitus();
+        if (toimitus == 1) {
+            Yhteenlasku summa = new Yhteenlasku(eka, toka);
+            return summa;
+        } else if (toimitus == 2) {
+            Vahennyslasku erotus = new Vahennyslasku(eka, toka);
+            return erotus;
+        } else if (toimitus == 3) {
+            Kertolasku tulo = new Kertolasku(eka, toka);
+            return tulo;
+        } else {
+            Jakolasku osamaara = new Jakolasku(eka, toka);
+            return osamaara;
+        }
+    }
+    
+    public Laskutoimitus arvoLaskuPositiiviKokonaisluvuilla() {
+        Laskutoimitus laskutoimitus = arvoSatunnainenLaskuKokonaisluvuilla();
+        while(true) {
+            int eka = laskutoimitus.haeEka().haeOsoittaja();
+            int toka = laskutoimitus.haeToka().haeOsoittaja();
+            if(eka>=0 && toka>=0) {
+                break;
+            }
+            laskutoimitus = arvoSatunnainenLaskuKokonaisluvuilla();
+        }
+        return laskutoimitus;
+    }
+    
+    public Laskutoimitus arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla() {
+        Laskutoimitus laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla();
+        while(true) {
+            Murtoluku tulos = laskutoimitus.laske();
+            if(tulos.haeOsoittaja()>=0) {
+                break;
+            }
+            laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla();
+         }
+        return laskutoimitus;
+     }
 }
