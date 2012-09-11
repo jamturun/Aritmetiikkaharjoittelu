@@ -11,10 +11,14 @@ public class Harjoittelu {
     private boolean salliNegatiivinenVastaus;
     private boolean vainKokonaislukuVastaus;
     private int numerot;
-
-    public int arvoLuvut() {
+    private Random arpoja;
+    
+    public Harjoittelu(Random arpoja) {
+        this.arpoja = arpoja;
+    }
+    
+     public int arvoLuvut() {
         int numerot = this.numerot;
-        Random arpoja = new Random();
         int ylaraja = (int) (2 * Math.pow(10, numerot) - 1);
         return (int) (arpoja.nextInt(ylaraja) - Math.pow(10, ylaraja) + 1);
     }
@@ -90,6 +94,7 @@ public class Harjoittelu {
             Kertolasku tulo = new Kertolasku(eka, toka);
             return tulo;
         } else {
+            toka = vaihdaNolla(toka);
             Jakolasku osamaara = new Jakolasku(eka, toka);
             return osamaara;
         }
@@ -116,7 +121,7 @@ public class Harjoittelu {
         }
         return laskutoimitus;
     }
-    
+
     public Laskutoimitus arvoSatunnainenLaskuKokonaisluvuilla() {
         int kokonaisluku1 = arvoLuvut();
         int kokonaisluku2 = arvoLuvut();
@@ -133,33 +138,44 @@ public class Harjoittelu {
             Kertolasku tulo = new Kertolasku(eka, toka);
             return tulo;
         } else {
+            toka = vaihdaNolla(toka);
             Jakolasku osamaara = new Jakolasku(eka, toka);
             return osamaara;
         }
     }
-    
+
     public Laskutoimitus arvoLaskuPositiiviKokonaisluvuilla() {
         Laskutoimitus laskutoimitus = arvoSatunnainenLaskuKokonaisluvuilla();
-        while(true) {
+        while (true) {
             int eka = laskutoimitus.haeEka().haeOsoittaja();
             int toka = laskutoimitus.haeToka().haeOsoittaja();
-            if(eka>=0 && toka>=0) {
+            if (eka >= 0 && toka >= 0) {
                 break;
             }
             laskutoimitus = arvoSatunnainenLaskuKokonaisluvuilla();
         }
         return laskutoimitus;
     }
-    
+
     public Laskutoimitus arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla() {
         Laskutoimitus laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla();
-        while(true) {
+        while (true) {
             Murtoluku tulos = laskutoimitus.laske();
-            if(tulos.haeOsoittaja()>=0) {
+            if (tulos.haeOsoittaja() >= 0) {
                 break;
             }
             laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla();
-         }
+        }
         return laskutoimitus;
-     }
+    }
+
+    public Murtoluku vaihdaNolla(Murtoluku murtoluku) {
+        while(true) {
+            if(murtoluku.haeOsoittaja() != 0) {
+                break;
+            }
+            murtoluku = arvoMurtoluku();
+        }
+        return murtoluku;
+    }
 }

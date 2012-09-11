@@ -1,5 +1,7 @@
 package aritmetiikanharjoittelua;
 
+import java.util.Random;
+
 public class AritmetiikanHarjoittelua {
 
     public static void main(String[] args) {
@@ -9,7 +11,8 @@ public class AritmetiikanHarjoittelua {
         
         Yhteenlasku summa = new Yhteenlasku(eka, toka);
         System.out.println(summa);
-        Harjoittelu harjoittelu = new Harjoittelu();
+        Random arpoja = new Random();
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja);
         harjoittelu.harjoittele();
     }
 }
