@@ -1,7 +1,7 @@
 
 
+import aritmetiikanharjoittelua.Harjoittelu;
 import aritmetiikanharjoittelua.TestiRandom;
-import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,9 +10,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class HarjoitteluTest {
+public class HarjoitteluLukujenLuontiTest {
     
-    public HarjoitteluTest() {
+    TestiRandom arpoja;
+    Harjoittelu harjoittelu;
+    
+    public HarjoitteluLukujenLuontiTest() {
     }
     
     @BeforeClass
@@ -25,16 +28,13 @@ public class HarjoitteluTest {
     
     @Before
     public void setUp() {
-        Random arpoja = new TestiRandom();
+        arpoja = new TestiRandom();
+        harjoittelu = new Harjoittelu(arpoja, 1);
     }
     
     @After
     public void tearDown() {
     }
     
-    @Test
-    public void nollallaJakaminenMurtoluvussa() {
-        
-    }
     
 }

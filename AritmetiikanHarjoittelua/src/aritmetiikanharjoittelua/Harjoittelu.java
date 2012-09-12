@@ -12,16 +12,17 @@ public class Harjoittelu {
     private boolean vainKokonaislukuVastaus;
     private int numerot;
     private Random arpoja;
-    
-    public Harjoittelu(Random arpoja) {
+
+    public Harjoittelu(Random arpoja, int numerot) {
         this.arpoja = arpoja;
+        this.numerot = numerot;
     }
-    
-     public int arvoLuvut() {
-        int numerot = this.numerot;
-        int ylaraja = (int) (2 * Math.pow(10, numerot) - 1);
-        return (int) (arpoja.nextInt(ylaraja) - Math.pow(10, ylaraja) + 1);
-    }
+
+    public int arvoLuvut() {
+        
+        int ylaraja = (int) (2 * Math.pow(10, numerot) - 2);
+        return (int) (arpoja.nextInt(ylaraja)- Math.pow(10, numerot) + 1);
+   }
 
     public int arvoLaskutoimitus() {
         int maara = laskutoimitukset.size();
@@ -170,8 +171,8 @@ public class Harjoittelu {
     }
 
     public Murtoluku vaihdaNolla(Murtoluku murtoluku) {
-        while(true) {
-            if(murtoluku.haeOsoittaja() != 0) {
+        while (true) {
+            if (murtoluku.haeOsoittaja() != 0) {
                 break;
             }
             murtoluku = arvoMurtoluku();
