@@ -12,6 +12,7 @@ public class TestiRandom extends Random {
     public TestiRandom() {
         
         luvut.add(2);
+        luvut.add(3);
         luvut.add(0);
         luvut.add(2);
         luvut.add(3);
