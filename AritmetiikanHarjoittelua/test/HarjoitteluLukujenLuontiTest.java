@@ -1,7 +1,7 @@
 
 import aritmetiikanharjoittelua.Harjoittelu;
 import aritmetiikanharjoittelua.Murtoluku;
-import aritmetiikanharjoittelua.TestiRandom;
+import aritmetiikanharjoittelua.TestiRandom1;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class HarjoitteluLukujenLuontiTest {
 
-    TestiRandom arpoja;
+    TestiRandom1 arpoja;
     Harjoittelu harjoittelu;
 
     public HarjoitteluLukujenLuontiTest() {
@@ -27,7 +27,7 @@ public class HarjoitteluLukujenLuontiTest {
 
     @Before
     public void setUp() {
-        arpoja = new TestiRandom();
+        arpoja = new TestiRandom1();
         harjoittelu = new Harjoittelu(arpoja, 1);
     }
 
@@ -42,4 +42,40 @@ public class HarjoitteluLukujenLuontiTest {
         assertEquals(2, murtoluku.haeOsoittaja(), 0.001);
         assertEquals(3, murtoluku.haeNimittaja(), 0.001);
     }
+    
+    @Test
+    public void vaihtaaNollanMurtoluvussa() {
+        Murtoluku murtoluku = harjoittelu.arvoMurtoluku();
+        
+        assertEquals(4, murtoluku.haeOsoittaja(), 0.001);
+        assertEquals(1, murtoluku.haeNimittaja(), 0.001);
+    }
+    
+    @Test
+    public void arpooKokonaisluvun() {
+        Murtoluku kokonaisluku = harjoittelu.arvoKokonaisluku();
+        
+        assertEquals(3, kokonaisluku.haeOsoittaja(), 0.001);
+        assertEquals(1, kokonaisluku.haeNimittaja(), 0.001);
+    }
+    
+    @Test
+    public void arpooPositiiviMurtoluvun() {
+        Murtoluku murtoluku = harjoittelu.arvoPositiiviMurtoluku();
+        
+        assertEquals(1, murtoluku.haeOsoittaja(), 0.001);
+        assertEquals(2, murtoluku.haeNimittaja(), 0.001);
+    }
+    
+    
+    
+    @Test
+    public void arpooPositiiviKokonaisluvun() {
+        Murtoluku kokonaisluku = harjoittelu.arvoPositiiviKokonaisluku();
+        
+        assertEquals(7, kokonaisluku.haeOsoittaja(), 0.001);
+        assertEquals(1, kokonaisluku.haeNimittaja(), 0.001);
+    }
+    
+    
 }

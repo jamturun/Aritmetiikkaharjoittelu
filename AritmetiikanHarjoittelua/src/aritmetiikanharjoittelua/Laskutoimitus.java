@@ -2,7 +2,7 @@
 package aritmetiikanharjoittelua;
 
 
-interface Laskutoimitus {
+public interface Laskutoimitus {
     
     public Murtoluku laske();
     public String toString();

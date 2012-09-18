@@ -92,12 +92,15 @@ public class AritmetiikanHarjoittelua {
             int nimittaja = Integer.parseInt(input.nextLine());
             if (osoittaja == lasku.laske().haeOsoittaja()
                     && nimittaja == lasku.laske().haeNimittaja()) {
+                System.out.println("");
                 System.out.println("Oikein! ");
                 System.out.println("");
             } else {
+                System.out.println("");
                 System.out.println("Väärin! ");
                 System.out.println("");
                 System.out.println("Oikea vastaus: " + lasku.laske());
+                System.out.println("");
             }
         }
 
