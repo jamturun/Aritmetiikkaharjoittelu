@@ -24,13 +24,22 @@ public class Harjoittelu {
         this.numerot = numerot;
         this.laskutoimitukset = laskutoimitukset;
     }
-    
+
+    public Harjoittelu(Random arpoja, boolean kokonaisluvut, boolean negatiiviluvut,
+            boolean negatiivivastaus, boolean kokonaislukuvastaus, int numerot) {
+        this.arpoja = arpoja;
+        this.pelkatKokonaisluvut = kokonaisluvut;
+        this.negatiiviLuvutMukana = negatiiviluvut;
+        this.salliNegatiiviVastaus = negatiivivastaus;
+        this.vainKokonaislukuVastaus = kokonaislukuvastaus;
+        this.numerot = numerot;
+    }
+
     public Harjoittelu(Random arpoja, int numerot) {
         this.arpoja = arpoja;
         this.numerot = numerot;
     }
-    
-    
+
     public int arvoLuvut() {
 
         int ylaraja = (int) (2 * Math.pow(10, numerot) - 2);
@@ -171,22 +180,6 @@ public class Harjoittelu {
         return murtoluku;
     }
 
-    public boolean onkoVahennyslasku(int laskutoimitus) {
-        if (laskutoimitus == 2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean onkoJakolasku(int laskutoimitus) {
-        if (laskutoimitus == 4) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public Laskutoimitus valitseLaskutoimitus(int toimitus, Murtoluku eka,
             Murtoluku toka) {
         if (toimitus == 1) {
@@ -205,7 +198,6 @@ public class Harjoittelu {
         }
     }
 
-    
     public Laskutoimitus arvoLasku(int toimitus) {
         if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
                 && salliNegatiiviVastaus == true
@@ -215,8 +207,7 @@ public class Harjoittelu {
             } else {
                 return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
             }
-        }
-        else if(pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
+        } else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
                 && salliNegatiiviVastaus == false
                 && vainKokonaislukuVastaus == true) {
             if (toimitus == 4) {
@@ -224,8 +215,7 @@ public class Harjoittelu {
             } else {
                 return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
             }
-        }
-        else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
+        } else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
                 && salliNegatiiviVastaus == false
                 && vainKokonaislukuVastaus == false) {
             return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
@@ -253,7 +243,7 @@ public class Harjoittelu {
             return arvoSatunnainenLasku(toimitus);
         }
     }
-    
+
     public String toString(Laskutoimitus laskutoimitus) {
         return laskutoimitus.toString() + " = ";
     }
