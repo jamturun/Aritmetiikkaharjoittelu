@@ -45,6 +45,7 @@ public class HarjoitteluLukujenLuontiTest {
     
     @Test
     public void vaihtaaNollanMurtoluvussa() {
+        arpoja.kasvataInttia(2);
         Murtoluku murtoluku = harjoittelu.arvoMurtoluku();
         
         assertEquals(4, murtoluku.haeOsoittaja(), 0.001);
@@ -53,6 +54,7 @@ public class HarjoitteluLukujenLuontiTest {
     
     @Test
     public void arpooKokonaisluvun() {
+        arpoja.kasvataInttia(4);
         Murtoluku kokonaisluku = harjoittelu.arvoKokonaisluku();
         
         assertEquals(3, kokonaisluku.haeOsoittaja(), 0.001);
@@ -61,6 +63,7 @@ public class HarjoitteluLukujenLuontiTest {
     
     @Test
     public void arpooPositiiviMurtoluvun() {
+        arpoja.kasvataInttia(5);
         Murtoluku murtoluku = harjoittelu.arvoPositiiviMurtoluku();
         
         assertEquals(1, murtoluku.haeOsoittaja(), 0.001);
@@ -71,6 +74,7 @@ public class HarjoitteluLukujenLuontiTest {
     
     @Test
     public void arpooPositiiviKokonaisluvun() {
+        arpoja.kasvataInttia(7);
         Murtoluku kokonaisluku = harjoittelu.arvoPositiiviKokonaisluku();
         
         assertEquals(7, kokonaisluku.haeOsoittaja(), 0.001);

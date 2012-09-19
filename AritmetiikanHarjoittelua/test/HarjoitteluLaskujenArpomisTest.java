@@ -50,6 +50,7 @@ public class HarjoitteluLaskujenArpomisTest {
 
     @Test
     public void arpooLaskunKokonaisluvuilla() {
+        arpoja.kasvataInttia(4);
         Laskutoimitus lasku = harjoittelu.arvoLaskuKokonaisluvuilla(2);
 
         assertEquals("-2 - 5", lasku.toString());
@@ -57,6 +58,7 @@ public class HarjoitteluLaskujenArpomisTest {
 
     @Test
     public void arpooLaskunPositiiviKokonaisluvuilla() {
+        arpoja.kasvataInttia(6);
         Laskutoimitus lasku = harjoittelu.arvoLaskuPositiiviKokonaisluvuilla(3);
 
         assertEquals("1 * 4", lasku.toString());
@@ -64,6 +66,7 @@ public class HarjoitteluLaskujenArpomisTest {
 
     @Test
     public void arpooLaskunPositiiviLuvuilla() {
+        arpoja.kasvataInttia(14);
         Laskutoimitus lasku = harjoittelu.arvoLaskuPositiiviLuvuilla(4);
 
         assertEquals("(1/2) / (5/7)", lasku.toString());
@@ -71,6 +74,7 @@ public class HarjoitteluLaskujenArpomisTest {
 
     @Test
     public void arpooPositiiviTulosLaskunPositiiviLuvuilla() {
+        arpoja.kasvataInttia(22);
         Laskutoimitus lasku = harjoittelu.arvoPositiiviTulosLaskuPositiiviLuvuilla(2);
 
         assertEquals("2/3 - 1/3", lasku.toString());
@@ -78,6 +82,7 @@ public class HarjoitteluLaskujenArpomisTest {
 
     @Test
     public void arpooKokonaislukuTulosLaskunKokonaisluvuilla() {
+        arpoja.kasvataInttia(26);
         Laskutoimitus lasku = harjoittelu.arvoKokonaislukuTulosLaskuKokonaisluvuilla(4);
 
         assertEquals("8 / -4", lasku.toString());
@@ -85,13 +90,15 @@ public class HarjoitteluLaskujenArpomisTest {
 
     @Test
     public void arpooKokonaislukuTulosLaskunPositiiviKokonaisluvuilla() {
+        arpoja.kasvataInttia(30);
         Laskutoimitus lasku = harjoittelu.arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(4);
 
         assertEquals("8 / 4", lasku.toString());
     }
 
     @Test
-    public void arpooPositiiviTulosLaskuPositiiviKokonaisluvuilla() {
+    public void arpooPositiiviTulosLaskunPositiiviKokonaisluvuilla() {
+        arpoja.kasvataInttia(36);
         Laskutoimitus lasku = harjoittelu.arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(2);
 
         assertEquals("9 - 8", lasku.toString());
@@ -106,6 +113,7 @@ public class HarjoitteluLaskujenArpomisTest {
     
     @Test
     public void vaihtaaNollanJakolaskussa() {
+        arpoja.kasvataInttia(40);
         Laskutoimitus lasku = harjoittelu.arvoSatunnainenLasku(4);
         
         assertEquals("4 / 3", lasku.toString());

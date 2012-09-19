@@ -7,7 +7,11 @@ import java.util.Random;
 public class TestiRandom1 extends Random {
     
     private ArrayList<Integer> luvut = new ArrayList<Integer>();
-    private static int i = -1;
+    private int i = -1;
+    
+     public void kasvataInttia(int n) {
+        i += n;
+    }
     
     public TestiRandom1() {
         

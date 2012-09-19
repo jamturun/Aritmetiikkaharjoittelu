@@ -199,46 +199,51 @@ public class Harjoittelu {
     }
 
     public Laskutoimitus arvoLasku(int toimitus) {
-        if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
-                && salliNegatiiviVastaus == true
-                && vainKokonaislukuVastaus == true) {
+         
+        if (pelkatKokonaisluvut && !negatiiviLuvutMukana
+                && salliNegatiiviVastaus
+                && vainKokonaislukuVastaus) {
+            if (toimitus == 4) {
+                return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
+            } else {
+                return arvoLaskuPositiiviKokonaisluvuilla(toimitus);
+            }
+        } else if (pelkatKokonaisluvut && !negatiiviLuvutMukana
+                && !salliNegatiiviVastaus
+                && vainKokonaislukuVastaus) {
             if (toimitus == 4) {
                 return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
             } else {
                 return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
             }
-        } else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
-                && salliNegatiiviVastaus == false
-                && vainKokonaislukuVastaus == true) {
-            if (toimitus == 4) {
-                return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-            } else {
-                return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-            }
-        } else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == false
-                && salliNegatiiviVastaus == false
-                && vainKokonaislukuVastaus == false) {
+        } else if (pelkatKokonaisluvut && !negatiiviLuvutMukana
+                && !salliNegatiiviVastaus
+                && !vainKokonaislukuVastaus) {
             return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-        } else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == true
-                && salliNegatiiviVastaus == true
-                && vainKokonaislukuVastaus == true) {
+        } else if (pelkatKokonaisluvut && negatiiviLuvutMukana
+                && salliNegatiiviVastaus
+                && vainKokonaislukuVastaus) {
             if (toimitus == 4) {
                 return arvoKokonaislukuTulosLaskuKokonaisluvuilla(toimitus);
             } else {
                 return arvoLaskuKokonaisluvuilla(toimitus);
             }
-        } else if (pelkatKokonaisluvut == true && negatiiviLuvutMukana == true
-                && salliNegatiiviVastaus == true
-                && vainKokonaislukuVastaus == false) {
+        } else if (pelkatKokonaisluvut && negatiiviLuvutMukana
+                && salliNegatiiviVastaus
+                && !vainKokonaislukuVastaus) {
             return arvoLaskuKokonaisluvuilla(toimitus);
-        } else if (pelkatKokonaisluvut == false && negatiiviLuvutMukana == false
-                && salliNegatiiviVastaus == true
-                && vainKokonaislukuVastaus == false) {
+        } else if (!pelkatKokonaisluvut && !negatiiviLuvutMukana
+                && salliNegatiiviVastaus
+                && !vainKokonaislukuVastaus) {
             return arvoLaskuPositiiviLuvuilla(toimitus);
-        } else if (pelkatKokonaisluvut == false && negatiiviLuvutMukana == false
-                && salliNegatiiviVastaus == false
-                && vainKokonaislukuVastaus == false) {
+        } else if (!pelkatKokonaisluvut && !negatiiviLuvutMukana
+                && !salliNegatiiviVastaus
+                && !vainKokonaislukuVastaus) {
             return arvoPositiiviTulosLaskuPositiiviLuvuilla(toimitus);
+        } else if (pelkatKokonaisluvut && !negatiiviLuvutMukana
+                && salliNegatiiviVastaus
+                && !vainKokonaislukuVastaus) {
+            return arvoLaskuPositiiviKokonaisluvuilla(toimitus);
         } else {
             return arvoSatunnainenLasku(toimitus);
         }
