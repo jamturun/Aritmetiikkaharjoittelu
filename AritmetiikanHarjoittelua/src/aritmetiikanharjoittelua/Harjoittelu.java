@@ -150,11 +150,13 @@ public class Harjoittelu {
 
     public Laskutoimitus arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla(toimitus);
-        while (true) {
-            if (laskutoimitus.laske().haeNimittaja() == 1) {
-                break;
+        if (toimitus == 4) {
+            while (true) {
+                if (laskutoimitus.laske().haeNimittaja() == 1) {
+                    break;
+                }
+                laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla(toimitus);
             }
-            laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla(toimitus);
         }
         return laskutoimitus;
     }
@@ -198,54 +200,41 @@ public class Harjoittelu {
         }
     }
 
+    public int valitseTapaus() {
+        int tapaus = (pelkatKokonaisluvut) ? 1 : 0;
+        tapaus = (negatiiviLuvutMukana) ? tapaus + 2 : tapaus;
+        tapaus = (salliNegatiiviVastaus) ? tapaus + 4 : tapaus;
+        tapaus = (vainKokonaislukuVastaus) ? tapaus + 8 : tapaus;
+        return tapaus;
+    }
+
     public Laskutoimitus arvoLasku(int toimitus) {
-         
-        if (pelkatKokonaisluvut && !negatiiviLuvutMukana
-                && salliNegatiiviVastaus
-                && vainKokonaislukuVastaus) {
-            if (toimitus == 4) {
-                return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-            } else {
-                return arvoLaskuPositiiviKokonaisluvuilla(toimitus);
-            }
-        } else if (pelkatKokonaisluvut && !negatiiviLuvutMukana
-                && !salliNegatiiviVastaus
-                && vainKokonaislukuVastaus) {
-            if (toimitus == 4) {
-                return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-            } else {
+
+        switch (valitseTapaus()) {
+            case 0:
+                return arvoPositiiviTulosLaskuPositiiviLuvuilla(toimitus);
+            case 1:
                 return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-            }
-        } else if (pelkatKokonaisluvut && !negatiiviLuvutMukana
-                && !salliNegatiiviVastaus
-                && !vainKokonaislukuVastaus) {
-            return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
-        } else if (pelkatKokonaisluvut && negatiiviLuvutMukana
-                && salliNegatiiviVastaus
-                && vainKokonaislukuVastaus) {
-            if (toimitus == 4) {
-                return arvoKokonaislukuTulosLaskuKokonaisluvuilla(toimitus);
-            } else {
+            case 4:
+                return arvoLaskuPositiiviLuvuilla(toimitus);
+            case 5:
+                return arvoLaskuPositiiviKokonaisluvuilla(toimitus);
+            case 6:
+                return arvoSatunnainenLasku(toimitus);
+            case 7:
                 return arvoLaskuKokonaisluvuilla(toimitus);
-            }
-        } else if (pelkatKokonaisluvut && negatiiviLuvutMukana
-                && salliNegatiiviVastaus
-                && !vainKokonaislukuVastaus) {
-            return arvoLaskuKokonaisluvuilla(toimitus);
-        } else if (!pelkatKokonaisluvut && !negatiiviLuvutMukana
-                && salliNegatiiviVastaus
-                && !vainKokonaislukuVastaus) {
-            return arvoLaskuPositiiviLuvuilla(toimitus);
-        } else if (!pelkatKokonaisluvut && !negatiiviLuvutMukana
-                && !salliNegatiiviVastaus
-                && !vainKokonaislukuVastaus) {
-            return arvoPositiiviTulosLaskuPositiiviLuvuilla(toimitus);
-        } else if (pelkatKokonaisluvut && !negatiiviLuvutMukana
-                && salliNegatiiviVastaus
-                && !vainKokonaislukuVastaus) {
-            return arvoLaskuPositiiviKokonaisluvuilla(toimitus);
-        } else {
-            return arvoSatunnainenLasku(toimitus);
+            case 9:
+                if (toimitus == 4) {
+                    return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
+                } else {
+                    return arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(toimitus);
+                }
+            case 13:
+                return arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(toimitus);
+            case 15:
+                return arvoKokonaislukuTulosLaskuKokonaisluvuilla(toimitus);
+            default:
+                return arvoSatunnainenLasku(toimitus);
         }
     }
 

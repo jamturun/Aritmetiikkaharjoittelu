@@ -338,7 +338,22 @@ public class HarjoitteluLaskujenValintaTest {
         assertEquals("7/5 * 1/8", lasku.toString());
     }
     
+    @Test
+    public void vastausPositiivinen0000() {
+        arpoja.kasvataInttia(109);
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, false, false, false, false, 1);
+        Laskutoimitus lasku = harjoittelu.arvoLasku(2);
+
+        assertEquals("1/2 - 1/4", lasku.toString());
+    }
     
-    
+    @Test
+    public void murtolukuVastausSallittu0000() {
+        arpoja.kasvataInttia(80);
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, false, false, false, false, 1);
+        Laskutoimitus lasku = harjoittelu.arvoLasku(4);
+
+        assertEquals("(1/2) / (2/3)", lasku.toString());
+    }
     
 }

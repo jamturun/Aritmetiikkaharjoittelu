@@ -20,36 +20,38 @@ public class AritmetiikanHarjoittelua {
         ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
 
         System.out.println("Valitaan laskutoimitukset.");
-        System.out.println("Yhteenlasku (k/e) ");
+        System.out.println("");
+        System.out.print("Yhteenlasku (k/e) ");
         String yhteenlasku = input.nextLine();
         if (yhteenlasku.equals("k")) {
             laskutoimitukset.add(1);
         }
-        System.out.println("Vähennyslasku (k/e) ");
+        System.out.print("Vähennyslasku (k/e) ");
         String vahennyslasku = input.nextLine();
         if (vahennyslasku.equals("k")) {
             laskutoimitukset.add(2);
         }
-        System.out.println("Kertolasku (k/e) ");
+        System.out.print("Kertolasku (k/e) ");
         String kertolasku = input.nextLine();
         if (kertolasku.equals("k")) {
             laskutoimitukset.add(3);
         }
-        System.out.println("Jakolasku (k/e) ");
+        System.out.print("Jakolasku (k/e) ");
         String jakolasku = input.nextLine();
         if (jakolasku.equals("k")) {
             laskutoimitukset.add(4);
         }
+        System.out.println("");
 
 
-        System.out.println("Pelkät kokonaisluvut? (k/e) ");
+        System.out.print("Pelkät kokonaisluvut? (k/e) ");
         String vastaus1 = input.nextLine();
 
         if (vastaus1.equals("e")) {
             kokonaisluvut = false;
             kokonaislukuvastaus = false;
         }
-        System.out.println("Negatiiviset luvut mukana? (k/e) ");
+        System.out.print("Negatiiviset luvut mukana? (k/e) ");
         String vastaus2 = input.nextLine();
 
         if (vastaus2.equals("k")) {
@@ -58,7 +60,7 @@ public class AritmetiikanHarjoittelua {
         }
 
         if (kokonaisluvut == true && laskutoimitukset.contains(4)) {
-            System.out.println("Onko vastaus aina kokonaisluku? (k/e) ");
+            System.out.print("Onko vastaus aina kokonaisluku? (k/e) ");
             String vastaus3 = input.nextLine();
             if (vastaus3.equals("e")) {
                 kokonaislukuvastaus = false;
@@ -66,19 +68,20 @@ public class AritmetiikanHarjoittelua {
         }
 
         if (negatiiviluvut == false && laskutoimitukset.contains(2)) {
-            System.out.println("Voiko vastaus olla negatiivinen? (k/e) ");
+            System.out.print("Voiko vastaus olla negatiivinen? (k/e) ");
             String vastaus4 = input.nextLine();
             if (vastaus4.equals("k")) {
                 negatiivivastaus = true;
             }
         }
 
-        System.out.println("Anna kysyttävien lukujen enimmäispituus numeroina:");
+        System.out.print("Anna kysyttävien lukujen enimmäispituus numeroina: ");
         int numerot = Integer.parseInt(input.nextLine());
 
         Harjoittelu harjoittelu = new Harjoittelu(arpoja, kokonaisluvut,
                 negatiiviluvut, negatiivivastaus, kokonaislukuvastaus, numerot,
                 laskutoimitukset);
+        System.out.println("");
         System.out.println("Aloitetaan harjoittelu.");
         System.out.println("");
         while (true) {
@@ -86,10 +89,18 @@ public class AritmetiikanHarjoittelua {
             Laskutoimitus lasku = harjoittelu.arvoLasku(toimitus);
             System.out.println(lasku);
             System.out.println("");
-            System.out.println("Anna osoittaja: ");
-            int osoittaja = Integer.parseInt(input.nextLine());
-            System.out.println("Anna nimittäjä: ");
-            int nimittaja = Integer.parseInt(input.nextLine());
+            int osoittaja = 1;
+            int nimittaja = 1;
+            if (!kokonaislukuvastaus) {
+                System.out.print("Anna osoittaja: ");
+                osoittaja = Integer.parseInt(input.nextLine());
+                System.out.print("Anna nimittäjä: ");
+                nimittaja = Integer.parseInt(input.nextLine());
+            } else {
+                System.out.print("Anna vastaus (kokonaisluku): ");
+                osoittaja = Integer.parseInt(input.nextLine());
+                nimittaja = 1;
+            }
             if (osoittaja == lasku.laske().haeOsoittaja()
                     && nimittaja == lasku.laske().haeNimittaja()) {
                 System.out.println("");

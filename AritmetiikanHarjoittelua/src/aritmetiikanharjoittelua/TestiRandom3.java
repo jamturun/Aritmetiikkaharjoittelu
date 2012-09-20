@@ -124,6 +124,14 @@ public class TestiRandom3 extends Random {
         luvut.add(5);
         luvut.add(1);
         luvut.add(8);
+        luvut.add(2);
+        luvut.add(1);
+        luvut.add(3);
+        luvut.add(1);
+        luvut.add(1);
+        luvut.add(2);
+        luvut.add(1);
+        luvut.add(4);
         
      }
     
