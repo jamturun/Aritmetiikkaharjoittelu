@@ -1,10 +1,31 @@
 package aritmetiikanharjoittelua;
 
+/**
+ * 
+ * @author Turunen Joonas
+ * @version 1.1
+ 
+ */
 public class Murtoluku {
 
+    /**
+     * Luotavan murtoluvun osoittaja
+     */
     private int osoittaja;
+    
+    /**
+     * Luotavan murtoluvun nimittäjä
+     */
     private int nimittaja;
-
+    
+/**
+ * Konstruktori, joka luo murtoluvun.
+ * Murtoluku sievennetään soveltaen Eukleideen algoritmia.
+ * Negatiivista nimittäjää ei sallita.
+ * 
+ * @param osoittaja Murtoluvun osoittaja
+ * @param nimittaja Murtoluvun nimittäja
+ */
     public Murtoluku(int osoittaja, int nimittaja) {
         int a = osoittaja;
         int b = nimittaja;
@@ -23,19 +44,42 @@ public class Murtoluku {
         }
     }
 
+    /**
+     * Konstruktori, joka luo kokonaisluvun.
+     * Nimittäjäksi asetetaan 1.
+     * 
+     * @param osoittaja Luotava kokonaisluku
+     */
     public Murtoluku(int osoittaja) {
         this.osoittaja = osoittaja;
         this.nimittaja = 1;
     }
 
+    /**
+     * Metodi palauttaa murtoluvun osoittajan.
+     * 
+     * @return osoittaja
+     */
     public int haeOsoittaja() {
-        return this.osoittaja;
+        return osoittaja;
     }
 
+    /**
+     * Metodi palauttaa murtoluvun nimittäjän.
+     * 
+     * @return nimittäjä
+     */
     public int haeNimittaja() {
         return this.nimittaja;
     }
 
+    /**
+     * Metodi palauttaa murtoluvun esityksen tulostusta varten.
+     * Murtoluku esitetään String-muodossa "osoittaja/nimittäjä",
+     * kokonaisluku muodossa "kokonaisluku"
+     * 
+     * @return murtoluvun esitys 
+     */
     public String toString() {
         if (nimittaja == 1) {
             return osoittaja + "";
@@ -46,6 +90,13 @@ public class Murtoluku {
         }
     }
 
+    /**
+     * Metodi summaa kaksi murtolukua.
+     * 
+     * @param toinen Murtoluku, joka summataan ensimmäiseen
+     * 
+     * @return murtolukujen summa
+     */
     public Murtoluku lisaa(Murtoluku toinen) {
         int uusiosoittaja = this.osoittaja * toinen.nimittaja + toinen.osoittaja * this.nimittaja;
         int uusinimittaja = this.nimittaja * toinen.nimittaja;
@@ -53,6 +104,13 @@ public class Murtoluku {
         return uusi;
     }
 
+    /**
+     * Metodi laskee kahden murtoluvun erotuksen.
+     * 
+     * @param toinen Murtoluku, joka vähennetään ensimmäisestä
+     * 
+     * @return murtolukujen erotus 
+     */
     public Murtoluku vahenna(Murtoluku toinen) {
         int uusiosoittaja = this.osoittaja * toinen.nimittaja - toinen.osoittaja * this.nimittaja;
         int uusinimittaja = this.nimittaja * toinen.nimittaja;
@@ -60,6 +118,13 @@ public class Murtoluku {
         return uusi;
     }
 
+    /**
+     * Metod kertoo kaksi murtolukua keskenään.
+     * 
+     * @param toinen Murtoluku, joka kerrotaan ensimmäisen kanssa
+     * 
+     * @return murtolukujen tulo 
+     */
     public Murtoluku kerro(Murtoluku toinen) {
         int uusiosoittaja = this.osoittaja * toinen.osoittaja;
         int uusinimittaja = this.nimittaja * toinen.nimittaja;
@@ -67,6 +132,13 @@ public class Murtoluku {
         return uusi;
     }
 
+    /**
+     * Metodi laskee kahden murtoluvun osamäärän.
+     * 
+     * @param toinen Murtoluku, jolla ensimmäinen murtoluku jaetaan
+     * 
+     * @return murtolukujen osamäärä 
+     */
     public Murtoluku jaa(Murtoluku toinen) {
         int uusiosoittaja = this.osoittaja * toinen.nimittaja;
         int uusinimittaja = this.nimittaja * toinen.osoittaja;

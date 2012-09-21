@@ -11,8 +11,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class VirheellisetSyotteetTest {
+
     Random arpoja;
-    Harjoittelu harjoittelu;
     ArrayList<Integer> laskutoimitukset;
 
     public VirheellisetSyotteetTest() {
@@ -31,8 +31,8 @@ public class VirheellisetSyotteetTest {
         arpoja = new Random();
         laskutoimitukset = new ArrayList<Integer>();
         laskutoimitukset.add(1);
-        harjoittelu = new Harjoittelu(arpoja, true, true, true, true, -2, laskutoimitukset);
-        
+
+
     }
 
     @After
@@ -41,9 +41,63 @@ public class VirheellisetSyotteetTest {
 
     @Test
     public void muuttaaNegatiivisenNumeroidenMaaranYkkoseksi() {
-
-        
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, -2, laskutoimitukset);
         int numerot = harjoittelu.haeNumerot();
         assertEquals(1, numerot);
     }
+
+    @Test
+    public void muuttaaNollaNumeroMaaranYkkoseksi() {
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 0, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(1, numerot);
+    }
+
+    @Test
+    public void muuttaaYsiaSuuremmatNumerotYsiksiYhteenlaskussa() {
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 10, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(9, numerot);
+    }
+
+    @Test
+    public void muuttaaNelostaSuuremmatNumerotNeloseksiKertolaskussa() {
+        laskutoimitukset.add(3);
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 5, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(4, numerot);
+    }
+    
+    @Test
+    public void muuttaaNelostaSuuremmatNumerotNeloseksiJakolaskussa() {
+        laskutoimitukset.add(4);
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 7, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(4, numerot);
+    }
+    
+    @Test
+    public void sailyttaaYsinYhteenlaskussa() {
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 9, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(9, numerot);
+    }
+    
+    @Test
+    public void sailyttaaNelosenKertolaskussa() {
+        laskutoimitukset.add(3);
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 4, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(4, numerot);
+    }
+    
+    @Test
+    public void sailyttaaNelosenJakolaskussa() {
+        laskutoimitukset.add(4);
+        Harjoittelu harjoittelu = new Harjoittelu(arpoja, true, true, true, true, 4, laskutoimitukset);
+        int numerot = harjoittelu.haeNumerot();
+        assertEquals(4, numerot);
+    }
+    
+    
 }
