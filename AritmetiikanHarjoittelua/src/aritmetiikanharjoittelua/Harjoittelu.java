@@ -12,6 +12,8 @@ public class Harjoittelu {
     private boolean vainKokonaislukuVastaus;
     private int numerot;
     private Random arpoja;
+    private ArrayList<Laskutoimitus> oikeinMenneet;
+    private ArrayList<Laskutoimitus> vaarinMenneet;
 
     public Harjoittelu(Random arpoja, boolean kokonaisluvut, boolean negatiiviluvut,
             boolean negatiivivastaus, boolean kokonaislukuvastaus, int numerot,
@@ -23,6 +25,17 @@ public class Harjoittelu {
         this.vainKokonaislukuVastaus = kokonaislukuvastaus;
         this.numerot = numerot;
         this.laskutoimitukset = laskutoimitukset;
+        if (laskutoimitukset.contains(3) || laskutoimitukset.contains(4)) {
+            if (this.numerot > 4) {
+                this.numerot = 4;
+            }
+        } else if (this.numerot < 1) {
+            this.numerot = 1;
+        } else {
+            if (this.numerot > 9) {
+                this.numerot = 9;
+            }
+        }
     }
 
     public Harjoittelu(Random arpoja, boolean kokonaisluvut, boolean negatiiviluvut,
@@ -38,6 +51,10 @@ public class Harjoittelu {
     public Harjoittelu(Random arpoja, int numerot) {
         this.arpoja = arpoja;
         this.numerot = numerot;
+    }
+    
+    public int haeNumerot() {
+        return this.numerot;
     }
 
     public int arvoLuvut() {

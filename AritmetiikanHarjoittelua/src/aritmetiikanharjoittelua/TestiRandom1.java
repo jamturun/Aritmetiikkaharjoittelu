@@ -27,6 +27,7 @@ public class TestiRandom1 extends Random {
     }
     
     
+    @Override
     public int nextInt(int ylaraja) {
          i++;
         return (int) (luvut.get(i) + 10 - 1);
