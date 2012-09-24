@@ -2,19 +2,70 @@ package aritmetiikanharjoittelua;
 
 import java.util.*;
 
+/**
+ * 
+ * @author Turunen Joonas
+ * @version 1.1
+ * 
+ */
 public class Harjoittelu {
 
+    /**
+     * Scanner-olio arvojen syöttämistä varten
+     */
     public static Scanner input = new Scanner(System.in);
+    /**
+     * Lista, joka sisältää harjoittelussa kysyttävät laskutoimitukset
+     */
     private ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
+    /**
+     * Kertoo, sisältävätkö laskutoimitukset pelkkiä kokonaislukuja
+     */
     private boolean pelkatKokonaisluvut;
+    /**
+     * Kertoo, ovatko negatiiviset luvut mukana laskutoimituksissa
+     */
     private boolean negatiiviLuvutMukana;
+    /**
+     * Kertoo, sallitaanko arvottavan laskutoimituksen tulokseksi negatiivinen vastaus
+     */
     private boolean salliNegatiiviVastaus;
+    /**
+     * Kertoo, sallitaanko vain laskutoimitukset, joiden tulos on kokonaisluku
+     */
     private boolean vainKokonaislukuVastaus;
+    /**
+     * Kertoo, kuinka monta numeroa laskutoimituksissa esiintyvissä kokonaisluvuissa
+     * (sisältäen osoittajat ja nimittäjät) voi enimmillään esiintyä
+     */
     private int numerot;
+    /**
+     * Satunnaislukugeneraattori
+     */
     private Random arpoja;
+    /**
+     * Lista, johon tallennetaan oikein vastatut laskutoimitukset
+     */
     private ArrayList<Laskutoimitus> oikeinMenneet;
+    /**
+     * Lista, johon tallennetaan väärin menneet laskutoimitukset
+     */
     private ArrayList<Laskutoimitus> vaarinMenneet;
 
+    /**
+     * Konstruktori luo laskutoimitus-olion valituin parametrein.
+     * Konstruktori luo satunnaislukugeneraattorin, ja sille annetaan parametreina
+     * käyttäjän tekemät valinnat koskien niin vaikeusastetta kuin myös 
+     * laskutoimitusten määrää.
+     * 
+     * @param arpoja Satunnaislukugeneraattori
+     * @param kokonaisluvut Totuusarvo sille, sallitaanko pelkät kokonaisluvut
+     * @param negatiiviluvut Totuusarvo sille, sallitaanko negatiiviset luvut
+     * @param negatiivivastaus Totuusarvo sille, sallitaanko negatiivinen vastaus
+     * @param kokonaislukuvastaus Totuusarvo sille, sallitaanko vain kokonaislukuvastaus
+     * @param numerot Laskutoimituksessa esiintyvien kokonaislukujen enimmäispituus numeroina
+     * @param laskutoimitukset Lista, joka sisältää valitut laskutoimitukset
+     */
     public Harjoittelu(Random arpoja, boolean kokonaisluvut, boolean negatiiviluvut,
             boolean negatiivivastaus, boolean kokonaislukuvastaus, int numerot,
             ArrayList<Integer> laskutoimitukset) {
@@ -38,6 +89,17 @@ public class Harjoittelu {
         }
     }
 
+    /**
+     * Vaihtoehtoinen konstruktori, jolle ei anneta laskutoimituksia.
+     * Käytetään ohjelman testaamiseen.
+     * 
+     *@param arpoja Satunnaislukugeneraattori
+     * @param kokonaisluvut Totuusarvo sille, sallitaanko pelkät kokonaisluvut
+     * @param negatiiviluvut Totuusarvo sille, sallitaanko negatiiviset luvut
+     * @param negatiivivastaus Totuusarvo sille, sallitaanko negatiivinen vastaus
+     * @param kokonaislukuvastaus Totuusarvo sille, sallitaanko vain kokonaislukuvastaus
+     * @param numerot Laskutoimituksessa esiintyvien kokonaislukujen enimmäispituus numeroina
+     */
     public Harjoittelu(Random arpoja, boolean kokonaisluvut, boolean negatiiviluvut,
             boolean negatiivivastaus, boolean kokonaislukuvastaus, int numerot) {
         this.arpoja = arpoja;
@@ -48,27 +110,60 @@ public class Harjoittelu {
         this.numerot = numerot;
     }
 
+    /**
+     * Vaihtoehtoinen konstruktori, jolle annetaan vain satunnaislukugeneraattori
+     * ja lukujen pituus numeroina.
+     * Käytetään ohjelman testaamiseen.
+     * @param arpoja Satunnaislukugeneraattori
+     * @param numerot Laskutoimituksessa esiintyvien kokonaislukujen enimmäispituus numeroina
+     */
     public Harjoittelu(Random arpoja, int numerot) {
         this.arpoja = arpoja;
         this.numerot = numerot;
     }
     
+    /**
+     * Palauttaa käyttäjän antaman lukujen enimmäispituuden numeroina.
+     * Käytetään ohjelman testaamiseen.
+     * 
+     * @return lukujen enimmäispituus numeroina
+     */
     public int haeNumerot() {
         return this.numerot;
     }
 
+    /**
+     * Arpoo satunnaisen luvun kiinteän ylä- ja alarajan väliltä.
+     * Ylä- ja alarajat määräytyvät käyttäjän antaman lukujen enimmäispituuden
+     * mukaan. Esimerkiksi enimmäispituuden ollessa 2 arvotaan luvut väliltä
+     * -99...99.
+     * 
+     * @return satunnainen, enintään enimmäispituuden mittainen luku
+     */
     public int arvoLuvut() {
 
         int ylaraja = (int) (2 * Math.pow(10, numerot) - 2);
         return (int) (arpoja.nextInt(ylaraja) - Math.pow(10, numerot) + 1);
     }
 
+    /**
+     * Arpoo kysyttävän laskutoimituksen tyypin laskutoimituslistasta.
+     * Määrätään onko kyse yhteen-, vähennys-, kerto- vai jakolaskusta.
+     * 
+     * @return kysyttävän laskutoimituksen tyyppi 
+     */
     public int arvoLaskutoimitus() {
         int maara = laskutoimitukset.size();
         Collections.shuffle(laskutoimitukset);
         return laskutoimitukset.get(maara - 1);
     }
 
+    /**
+     * Arpoo satunnaisen murtoluvun laskutoimituksia varten.
+     * Jos murtoluvun nimittäjäksi arvotaan 0, vaihdetaan nimittäjä luvuksi 1.
+     * 
+     * @return satunnainen murtoluku 
+     */
     public Murtoluku arvoMurtoluku() {
         int osoittaja = arvoLuvut();
         int nimittaja = arvoLuvut();
@@ -79,12 +174,22 @@ public class Harjoittelu {
         return murtoluku;
     }
 
+    /**
+     * Arpoo satunnaisen kokonaisluvun.
+     * 
+     * @return satunnainen kokonaisluku 
+     */
     public Murtoluku arvoKokonaisluku() {
         int luku = arvoLuvut();
         Murtoluku kokonaisluku = new Murtoluku(luku);
         return kokonaisluku;
     }
 
+    /**
+     * Arpoo positiivisen murtoluvun
+     * 
+     * @return positiivinen murtoluku 
+     */
     public Murtoluku arvoPositiiviMurtoluku() {
         Murtoluku murtoluku = arvoMurtoluku();
         int osoittaja = Math.abs(murtoluku.haeOsoittaja());
@@ -93,6 +198,11 @@ public class Harjoittelu {
         return uusi;
     }
 
+    /**
+     * Arpoo positiivisen kokonaisluvun.
+     * 
+     * @return positiivinen kokonaisluku 
+     */
     public Murtoluku arvoPositiiviKokonaisluku() {
         int luku = arvoLuvut();
         luku = Math.abs(luku);
@@ -100,22 +210,43 @@ public class Harjoittelu {
         return kokonaisluku;
     }
 
+    /**
+     * Arpoo laskun satunnaisilla murtoluvuilla.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku
+     */
     public Laskutoimitus arvoSatunnainenLasku(int toimitus) {
         Murtoluku eka = arvoMurtoluku();
         Murtoluku toka = arvoMurtoluku();
-        Laskutoimitus laskutoimitus = valitseLaskutoimitus(toimitus, eka, toka);
+        Laskutoimitus laskutoimitus = kokoaLaskutoimitus(toimitus, eka, toka);
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun satunnaisilla kokonaisluvuilla.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoLaskuKokonaisluvuilla(int toimitus) {
         int kokonaisluku1 = arvoLuvut();
         int kokonaisluku2 = arvoLuvut();
         Murtoluku eka = new Murtoluku(kokonaisluku1);
         Murtoluku toka = new Murtoluku(kokonaisluku2);
-        Laskutoimitus laskutoimitus = valitseLaskutoimitus(toimitus, eka, toka);
+        Laskutoimitus laskutoimitus = kokoaLaskutoimitus(toimitus, eka, toka);
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun positiivisilla kokonaisluvuilla.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoLaskuPositiiviKokonaisluvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoLaskuKokonaisluvuilla(toimitus);
         while (true) {
@@ -129,6 +260,13 @@ public class Harjoittelu {
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun positiivisilla murtoluvuilla.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoLaskuPositiiviLuvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoSatunnainenLasku(toimitus);
         while (true) {
@@ -142,6 +280,16 @@ public class Harjoittelu {
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun positiivisilla murtoluvuilla, jonka tulos on
+     * positiivinen murtoluku.
+     * Olennainen positiivisten lukujen vähennyslaskussa, mikäli halutaan
+     * positiivinen vastaus.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku
+     */
     public Laskutoimitus arvoPositiiviTulosLaskuPositiiviLuvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoLaskuPositiiviLuvuilla(toimitus);
         while (true) {
@@ -154,6 +302,15 @@ public class Harjoittelu {
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun kokonaisluvuilla, jonka tulos on kokonaisluku.
+     * Olennainen, mikäli halutaan, että kokonaislukujen jakolaskun tulos on
+     * kokonaisluku.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoKokonaislukuTulosLaskuKokonaisluvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoLaskuKokonaisluvuilla(toimitus);
         while (true) {
@@ -165,6 +322,15 @@ public class Harjoittelu {
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun positiivisilla kokonaisluvuilla, jonka tulos on kokonaisluku.
+     * Olennainen, mikäli halutaan, että positiivisten kokonaislukujen jakolaskun tulos on
+     * kokonaisluku.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoKokonaislukuTulosLaskuPositiiviKokonaisluvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla(toimitus);
         if (toimitus == 4) {
@@ -178,6 +344,15 @@ public class Harjoittelu {
         return laskutoimitus;
     }
 
+    /**
+     * Arpoo laskun positiivisilla kokonaisluvuilla, jonka tulos on positiivinen.
+     * Olennainen positiivisten kokonaislukujen vähennyslaskussa, mikäli halutaan
+     * positiivinen vastaus.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoPositiiviTulosLaskuPositiiviKokonaisluvuilla(int toimitus) {
         Laskutoimitus laskutoimitus = arvoLaskuPositiiviKokonaisluvuilla(toimitus);
         while (true) {
@@ -189,6 +364,15 @@ public class Harjoittelu {
         return laskutoimitus;
     }
 
+    /**
+     * Vaihtaa parametrina annetun murtoluvun nollasta eroavaksi, mikäli
+     * se on nolla.
+     * Suorittamalla metodi estetään nollalla jakaminen jakolaskussa.
+     * 
+     * @param murtoluku Tarkistettava, mahdollisesti vaihdettava murtoluku
+     * 
+     * @return nollasta eroava murtoluku
+     */
     public Murtoluku vaihdaNolla(Murtoluku murtoluku) {
         while (true) {
             if (murtoluku.haeOsoittaja() != 0) {
@@ -199,7 +383,16 @@ public class Harjoittelu {
         return murtoluku;
     }
 
-    public Laskutoimitus valitseLaskutoimitus(int toimitus, Murtoluku eka,
+    /**
+     * Kokoaa ja palauttaa laskutoimituksen arvotuista tyypistä ja murtoluvuista.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * @param eka Laskutoimituksen ensimmäinen jäsen
+     * @param toka Laskutoimituksen toinen jäsen
+     * 
+     * @return laskutoimitus valmiissa muodossa tulostettuna 
+     */
+    public Laskutoimitus kokoaLaskutoimitus(int toimitus, Murtoluku eka,
             Murtoluku toka) {
         if (toimitus == 1) {
             Yhteenlasku summa = new Yhteenlasku(eka, toka);
@@ -217,6 +410,11 @@ public class Harjoittelu {
         }
     }
 
+    /**
+     * Numeroi ja palauttaa eri totuusarvovalintoja vastaavat tapaukset.
+     * 
+     * @return totuusarvoja vastaava tapaus kokonaislukuna väliltä 0...15 
+     */
     public int valitseTapaus() {
         int tapaus = (pelkatKokonaisluvut) ? 1 : 0;
         tapaus = (negatiiviLuvutMukana) ? tapaus + 2 : tapaus;
@@ -225,6 +423,14 @@ public class Harjoittelu {
         return tapaus;
     }
 
+    /**
+     * Arpoo laskutoimituksen valittujen totuusarvojen mukaisesti.
+     * Ohjelman toiminnan kannalta merkityksettömät valinnat on karsittu pois.
+     * 
+     * @param toimitus Laskutoimituksen tyyppi
+     * 
+     * @return kysyttävä lasku 
+     */
     public Laskutoimitus arvoLasku(int toimitus) {
 
         switch (valitseTapaus()) {
@@ -255,6 +461,13 @@ public class Harjoittelu {
         }
     }
 
+    /**
+     * Palauttaa laskutoimituksen tulostusasun täydennettynä yhtäsuuruusmerkillä.
+     * 
+     * @param laskutoimitus Kysyttävä lasku
+     * 
+     * @return kysyttävän laskun esitys 
+     */
     public String toString(Laskutoimitus laskutoimitus) {
         return laskutoimitus.toString() + " = ";
     }
