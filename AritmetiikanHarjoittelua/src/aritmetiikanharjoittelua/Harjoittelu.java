@@ -76,6 +76,19 @@ public class Harjoittelu {
         this.vainKokonaislukuVastaus = kokonaislukuvastaus;
         this.numerot = numerot;
         this.laskutoimitukset = laskutoimitukset;
+        this.numerot = korjaaNumerot(numerot);
+    }
+    
+    /**
+     * Metodi korjaa numerot-muuttujan arvon sallituksi.
+     * Varmistetaan, että int-tyypin ala- ja yläraja-arvot eivät tuota ongelmia
+     * laskutoimituksissa. Estetään siis liian pienten ja suurten lukujen
+     * käsittely.
+     * 
+     * @param numerot Laskutoimituksessa esiintyvien kokonaislukujen enimmäispituus numeroina
+     * @return kokonaislukujen enimmäispituus korjattuna
+     */
+    public int korjaaNumerot(int numerot) {
         if (laskutoimitukset.contains(3) || laskutoimitukset.contains(4)) {
             if (this.numerot > 4) {
                 this.numerot = 4;
@@ -87,6 +100,7 @@ public class Harjoittelu {
                 this.numerot = 9;
             }
         }
+        return this.numerot;
     }
 
     /**
