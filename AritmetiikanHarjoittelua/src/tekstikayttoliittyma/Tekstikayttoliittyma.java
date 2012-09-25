@@ -43,7 +43,8 @@ public class Tekstikayttoliittyma {
             laskutoimitukset.add(4);
         }
         System.out.println("");
-
+        System.out.println("Valitaan vaikeusaste.");
+        System.out.println("");
 
         System.out.print("Pelkät kokonaisluvut? (k/e) ");
         String vastaus1 = input.nextLine();

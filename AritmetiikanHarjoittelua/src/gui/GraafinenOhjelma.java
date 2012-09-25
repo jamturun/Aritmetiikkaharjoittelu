@@ -8,11 +8,13 @@ import javax.swing.*;
 public class GraafinenOhjelma implements Runnable {
 
     private JFrame ikkuna;
+    private Container pohja;
     private Container otsikkoboksi;
     private Container kysymysboksi;
     private Container nappulat;
     private JLabel otsikko;
     private JLabel kysymys;
+    private JTextField tekstikentta;
     Random arpoja = new Random();
     boolean kokonaisluvut = true;
     boolean negatiiviluvut = false;
@@ -71,6 +73,8 @@ public class GraafinenOhjelma implements Runnable {
         pohja.add(otsikkoboksi);
         pohja.add(kysymysboksi);
         pohja.add(nappulat);
+        
+        tekstikentta = new JTextField();
     }
 
     public void paivitaSeuraavaTilanne() {
@@ -84,8 +88,35 @@ public class GraafinenOhjelma implements Runnable {
             } else if (kysymys.getText().equals("Kertolasku?")) {
                 kysymys.setText("Jakolasku?");
                 break;
+            } else if (kysymys.getText().equals("Jakolasku?")) {
+                otsikko.setText("Valitaan vaikeusaste.");
+                kysymys.setText("Pelkät kokonaisluvut?");
+            } else if (kysymys.getText().equals("Pelkät kokonaisluvut?")) {
+                kysymys.setText("Negatiiviset luvut mukana?");
+                break;
+            } else if (kysymys.getText().equals("Negatiiviset luvut mukana?")) {
+                if (kokonaisluvut && laskutoimitukset.contains(4)) {
+                    kysymys.setText("Onko vastaus aina kokonaisluku?");
+                } else if (negatiiviluvut == false && laskutoimitukset.contains(2)) {
+                    kysymys.setText("Voiko vastaus olla negatiivinen?");
+                } else {
+                    kysymys.setText("Anna kysyttävien lukujen enimmäispituus numeroina:");
+                }
+                break;
+            } else if (kysymys.getText().equals("Onko vastaus aina kokonaisluku?")) {
+                if (negatiiviluvut == false && laskutoimitukset.contains(2)) {
+                    kysymys.setText("Voiko vastaus olla negatiivinen?");
+                } else {
+                    kysymys.setText("Anna kysyttävien lukujen enimmäispituus numeroina:");
+                }
+                break;
+            } else if (kysymys.getText().equals("Voiko vastaus olla negatiivinen?")) {
+                kysymys.setText("Anna kysyttävien lukujen enimmäispituus numeroina:");
+                break;
             }
+            break;
         }
+
     }
 
     public void teeValinta(String valinta) {
@@ -108,6 +139,32 @@ public class GraafinenOhjelma implements Runnable {
             if (valinta.equals("Kyllä")) {
                 laskutoimitukset.add(4);
             }
+        }
+        if (kysymys.getText().equals("Pelkät kokonaisluvut?")) {
+            if (valinta.equals("Ei")) {
+                kokonaisluvut = false;
+                kokonaislukuvastaus = false;
+            }
+        }
+        if (kysymys.getText().equals("Negatiiviset luvut mukana?")) {
+            if (valinta.equals("Kyllä")) {
+                negatiiviluvut = true;
+                negatiivivastaus = true;
+            }
+        }
+        if (kysymys.getText().equals("Onko vastaus aina kokonaisluku?")) {
+            if (valinta.equals("Ei")) {
+                kokonaislukuvastaus = false;
+            }
+        }
+        if (kysymys.getText().equals("Voiko vastaus olla negatiivinen?")) {
+            if (valinta.equals("Kyllä")) {
+                negatiivivastaus = true;
+            }
+        }
+        if(kysymys.getText().equals("Anna kysyttävien lukujen enimmäispituus numeroina:")) {
+           
+//            pohja.add(tekstikentta);
         }
     }
 }
