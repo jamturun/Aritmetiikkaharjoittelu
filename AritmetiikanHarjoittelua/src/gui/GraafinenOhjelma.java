@@ -11,7 +11,8 @@ public class GraafinenOhjelma implements Runnable {
     private Container pohja;
     private Container otsikkoboksi;
     private Container kysymysboksi;
-    private Container nappulat;
+    private Container nappulat1;
+    private Container nappulat2;
     private JLabel otsikko;
     private JLabel kysymys;
     private JTextField tekstikentta;
@@ -38,7 +39,7 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     private void luoKomponentit() {
-        Container pohja = ikkuna.getContentPane();
+        pohja = ikkuna.getContentPane();
         pohja.setLayout(new BoxLayout(pohja, BoxLayout.Y_AXIS));
 
         otsikkoboksi = new Container();
@@ -55,8 +56,14 @@ public class GraafinenOhjelma implements Runnable {
         kysymys.setAlignmentX(Component.CENTER_ALIGNMENT);
         kysymysboksi.add(kysymys);
 
-        nappulat = new Container();
-        nappulat.setLayout(new FlowLayout());
+        tekstikentta = new JTextField();
+        tekstikentta.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        nappulat1 = new Container();
+        nappulat1.setLayout(new FlowLayout());
+
+        nappulat2 = new Container();
+        nappulat2.setLayout(new FlowLayout());
 
         JButton kylla = new JButton("Kyllä");
         kylla.addActionListener(new NappulanKuuntelija(this));
@@ -66,15 +73,18 @@ public class GraafinenOhjelma implements Runnable {
         ei.addActionListener(new NappulanKuuntelija(this));
         ei.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        JButton ok = new JButton("OK");
+        ok.addActionListener(new NappulanKuuntelija(this));
+        ok.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        nappulat.add(kylla);
-        nappulat.add(ei);
+        nappulat1.add(kylla);
+        nappulat1.add(ei);
+        nappulat2.add(ok);
 
         pohja.add(otsikkoboksi);
         pohja.add(kysymysboksi);
-        pohja.add(nappulat);
-        
-        tekstikentta = new JTextField();
+        pohja.add(nappulat1);
+
     }
 
     public void paivitaSeuraavaTilanne() {
@@ -101,6 +111,9 @@ public class GraafinenOhjelma implements Runnable {
                     kysymys.setText("Voiko vastaus olla negatiivinen?");
                 } else {
                     kysymys.setText("Anna kysyttävien lukujen enimmäispituus numeroina:");
+                    nappulat1.removeAll();
+                    pohja.add(tekstikentta);
+                    pohja.add(nappulat2);
                 }
                 break;
             } else if (kysymys.getText().equals("Onko vastaus aina kokonaisluku?")) {
@@ -108,10 +121,16 @@ public class GraafinenOhjelma implements Runnable {
                     kysymys.setText("Voiko vastaus olla negatiivinen?");
                 } else {
                     kysymys.setText("Anna kysyttävien lukujen enimmäispituus numeroina:");
+                    nappulat1.removeAll();
+                    pohja.add(tekstikentta);
+                    pohja.add(nappulat2);
                 }
                 break;
             } else if (kysymys.getText().equals("Voiko vastaus olla negatiivinen?")) {
                 kysymys.setText("Anna kysyttävien lukujen enimmäispituus numeroina:");
+                nappulat1.removeAll();
+                pohja.add(tekstikentta);
+                pohja.add(nappulat2);
                 break;
             }
             break;
@@ -162,9 +181,7 @@ public class GraafinenOhjelma implements Runnable {
                 negatiivivastaus = true;
             }
         }
-        if(kysymys.getText().equals("Anna kysyttävien lukujen enimmäispituus numeroina:")) {
-           
-//            pohja.add(tekstikentta);
+        if (kysymys.getText().equals("Anna kysyttävien lukujen enimmäispituus numeroina:")) {
         }
     }
 }

@@ -116,6 +116,5 @@ public class Tekstikayttoliittyma {
                 System.out.println("");
             }
         }
-
-    }
+        }
 }
