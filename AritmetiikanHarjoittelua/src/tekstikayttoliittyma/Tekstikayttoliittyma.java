@@ -2,10 +2,7 @@ package tekstikayttoliittyma;
 
 import aritmetiikanharjoittelua.Harjoittelu;
 import aritmetiikanharjoittelua.Laskutoimitus;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Tekstikayttoliittyma {
 

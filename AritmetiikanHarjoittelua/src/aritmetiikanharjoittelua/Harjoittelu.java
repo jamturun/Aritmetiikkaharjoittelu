@@ -83,7 +83,7 @@ public class Harjoittelu {
      * Metodi korjaa numerot-muuttujan arvon sallituksi.
      * Varmistetaan, että int-tyypin ala- ja yläraja-arvot eivät tuota ongelmia
      * laskutoimituksissa. Estetään siis liian pienten ja suurten lukujen
-     * käsittely.
+     * käsittely tekstikäyttöliittymässä.
      * 
      * @param numerot Laskutoimituksessa esiintyvien kokonaislukujen enimmäispituus numeroina
      * @return kokonaislukujen enimmäispituus korjattuna
