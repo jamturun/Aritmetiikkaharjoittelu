@@ -19,6 +19,7 @@ public class GraafinenOhjelma implements Runnable {
     private Container kysymysboksi2;
     private Container nappulat1;
     private Container nappulat2;
+    private Container nappulat3;
     private JTextField vastauskentta1;
     private JTextField vastauskentta2;
     private JButton viisi;
@@ -27,6 +28,7 @@ public class GraafinenOhjelma implements Runnable {
     private JButton kasi;
     private JButton ysi;
     private JButton tarkista;
+    private JButton lopeta;
     private JButton jatka;
     private JLabel otsikko;
     private JLabel kysymys1;
@@ -39,6 +41,7 @@ public class GraafinenOhjelma implements Runnable {
     private boolean kokonaislukuvastaus = true;
     private int numerot;
     ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
+    private Laskutoimitus tehtava;
     private Murtoluku ratkaisu;
     private Harjoittelu harjoittelu;
 
@@ -48,6 +51,7 @@ public class GraafinenOhjelma implements Runnable {
         ikkuna.setPreferredSize(new Dimension(500, 300));
 
         luoKomponentit();
+        luoValikko();
 
         ikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ikkuna.pack();
@@ -65,7 +69,7 @@ public class GraafinenOhjelma implements Runnable {
         otsikkoboksi.setLayout(new FlowLayout());
 
         otsikko = new JLabel("Valitaan laskutoimitukset.");
-        otsikko.setAlignmentX(Component.CENTER_ALIGNMENT);
+        otsikko.setAlignmentX(Component.LEFT_ALIGNMENT);
         otsikkoboksi.add(otsikko);
 
         kysymysboksi1 = new Container();
@@ -75,11 +79,11 @@ public class GraafinenOhjelma implements Runnable {
         kysymysboksi2.setLayout(new FlowLayout());
 
         kysymys1 = new JLabel("Yhteenlasku?");
-        kysymys1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        kysymys1.setAlignmentX(Component.LEFT_ALIGNMENT);
         kysymysboksi1.add(kysymys1);
 
         kysymys2 = new JLabel("Anna nimittäjä");
-        kysymys2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        kysymys2.setAlignmentX(Component.LEFT_ALIGNMENT);
         kysymysboksi2.add(kysymys2);
 
         lasku = new JLabel("");
@@ -93,6 +97,9 @@ public class GraafinenOhjelma implements Runnable {
 
         nappulat2 = new Container();
         nappulat2.setLayout(new FlowLayout());
+
+        nappulat3 = new Container();
+        nappulat3.setLayout(new FlowLayout());
 
         JButton kylla = teeNappi("Kyllä");
 
@@ -118,6 +125,8 @@ public class GraafinenOhjelma implements Runnable {
 
         tarkista = teeNappi("Tarkista");
 
+        lopeta = teeNappi("Lopeta");
+
         jatka = teeNappi("Jatka");
 
         nappulat1.add(kylla);
@@ -126,7 +135,8 @@ public class GraafinenOhjelma implements Runnable {
         nappulat2.add(kaksi);
         nappulat2.add(kolme);
         nappulat2.add(nelja);
-
+        nappulat3.add(tarkista);
+        nappulat3.add(lopeta);
 
         pohja.add(otsikkoboksi);
         pohja.add(kysymysboksi1);
@@ -225,9 +235,7 @@ public class GraafinenOhjelma implements Runnable {
                 negatiivivastaus = true;
             }
         }
-        if (kysymys1.getText().equals("Anna kysyttävien lukujen enimmäispituus numeroina:")) {
-            int numerot = Integer.parseInt(input.nextLine());
-        }
+
     }
 
     public void tallennaNumerot(int numero) {
@@ -250,6 +258,9 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     public void aloitaHarjoittelu() {
+        if(laskutoimitukset.size() == 0) {
+            laskutoimitukset.add(1);
+        }
         otsikko.setText("Harjoittelu");
         harjoittelu = new Harjoittelu(arpoja, kokonaisluvut,
                 negatiiviluvut, negatiivivastaus, kokonaislukuvastaus, numerot,
@@ -259,40 +270,59 @@ public class GraafinenOhjelma implements Runnable {
         kysymysboksi2.removeAll();
         pohja.remove(nappulat2);
 
-        harjoittele(harjoittelu);
+        harjoittele();
+    }
+
+    public int oikeaMuotoinenVastaus1() {
+
+        int vastaus = 0;
+        try {
+            vastaus = Integer.parseInt(vastauskentta1.getText());
+        } catch (Exception e) {
+            palautaAlkutilanne();
+            harjoittele();
+        }
+        return vastaus;
+    }
+
+    public int oikeaMuotoinenVastaus2() {
+
+        int vastaus = 0;
+        try {
+            vastaus = Integer.parseInt(vastauskentta2.getText());
+        } catch (Exception e) {
+            palautaAlkutilanne();
+            harjoittele();
+        }
+        return vastaus;
     }
 
     public void tarkistaVastaus() {
         if (kysymys1.getText().equals("Anna kokonaislukuvastaus")) {
-            int vastaus = 0;
-            try {
-                vastaus = Integer.parseInt(vastauskentta1.getText());
-            } catch (Exception e) {
-                System.out.println("vituiks män");
-                System.exit(0);
-            }
-
+            int vastaus = oikeaMuotoinenVastaus1();
             vastauskentta1.setVisible(false);
             lasku.setVisible(false);
-            tarkista.setVisible(false);
+            nappulat3.setVisible(false);
+            
 
-            System.out.println("lolo lololo0 lolo");
             if (vastaus == ratkaisu.haeOsoittaja()) {
                 kysymys1.setText("Oikein!");
                 pohja.add(jatka);
             } else {
+                harjoittelu.lisaaVaikea(tehtava);
                 kysymys1.setText("Väärin!");
                 pohja.add(jatka);
             }
         } else {
-            int osoittajavastaus = Integer.parseInt(vastauskentta1.getText());
-            int nimittajavastaus = Integer.parseInt(vastauskentta2.getText());
+            int osoittajavastaus = oikeaMuotoinenVastaus1();
+            int nimittajavastaus = oikeaMuotoinenVastaus2();
 
             kysymysboksi2.setVisible(false);
             vastauskentta1.setVisible(false);
             vastauskentta2.setVisible(false);
             lasku.setVisible(false);
-            tarkista.setVisible(false);
+            nappulat3.setVisible(false);
+            
 
             if (osoittajavastaus == ratkaisu.haeOsoittaja()
                     && nimittajavastaus == ratkaisu.haeNimittaja()) {
@@ -301,28 +331,30 @@ public class GraafinenOhjelma implements Runnable {
                 kysymys1.setText("Oikein!");
                 pohja.add(jatka);
             } else {
+                harjoittelu.lisaaVaikea(tehtava);
                 kysymys1.setText("Väärin!");
                 pohja.add(jatka);
             }
         }
     }
 
-    public void harjoittele(Harjoittelu harjoittelu) {
+    public void harjoittele() {
         if (kokonaislukuvastaus) {
             pohja.add(lasku);
             int toimitus = harjoittelu.arvoLaskutoimitus();
-            Laskutoimitus tehtava = harjoittelu.arvoLasku(toimitus);
+            tehtava = harjoittelu.arvoLasku(toimitus);
             ratkaisu = tehtava.laske();
             lasku.setText(harjoittelu.toString(tehtava));
             pohja.add(kysymysboksi1);
             kysymysboksi1.add(kysymys1);
             kysymys1.setText("Anna kokonaislukuvastaus");
             pohja.add(vastauskentta1);
-            pohja.add(tarkista);
+            pohja.add(nappulat3);
+           
         } else {
             pohja.add(lasku);
             int toimitus = harjoittelu.arvoLaskutoimitus();
-            Laskutoimitus tehtava = harjoittelu.arvoLasku(toimitus);
+            tehtava = harjoittelu.arvoLasku(toimitus);
             ratkaisu = tehtava.laske();
             lasku.setText(harjoittelu.toString(tehtava));
             pohja.add(kysymysboksi1);
@@ -332,7 +364,8 @@ public class GraafinenOhjelma implements Runnable {
             pohja.add(kysymysboksi2);
             kysymysboksi2.add(kysymys2);
             pohja.add(vastauskentta2);
-            pohja.add(tarkista);
+            pohja.add(nappulat3);
+            
         }
     }
 
@@ -342,8 +375,49 @@ public class GraafinenOhjelma implements Runnable {
         nappi.setAlignmentX(Component.LEFT_ALIGNMENT);
         return nappi;
     }
-    
+
     public void palautaAlkutilanne() {
+        pohja.removeAll();
+        vastauskentta1.setVisible(true);
+        vastauskentta1.setText("");
+        if (!kokonaislukuvastaus) {
+            vastauskentta2.setVisible(true);
+            vastauskentta2.setText("");
+            kysymysboksi2.setVisible(true);
+        }
+        lasku.setVisible(true);
+        nappulat3.setVisible(true);
         
+        pohja.add(otsikko);
+        pohja.add(lasku);
+
+    }
+    
+    public void mitaTehdaan() {
+        nappulat3.setVisible(false);
+        vastauskentta2.setVisible(false);
+        kysymysboksi2.setVisible(false);
+        vastauskentta1.setVisible(false);
+        kysymysboksi1.setVisible(false);
+        lasku.setVisible(false);
+        otsikko.setText("Valitse uusi peli tai sulje ohjelma.");
+    }
+    
+    private void luoValikko() {
+        JMenuBar valikko = new JMenuBar();
+ 
+        JMenu valikkoPeli = new JMenu("Peli");
+        valikko.add(valikkoPeli);
+        
+ 
+        JMenuItem valikkoUusi = new JMenuItem("Uusi peli");
+        valikkoUusi.addActionListener(new ValikonKuuntelija(this));
+        valikkoPeli.add(valikkoUusi);
+ 
+        JMenuItem valikkoSulje = new JMenuItem("Sulje");
+        valikkoSulje.addActionListener(new ValikonKuuntelija(this));
+        valikkoPeli.add(valikkoSulje);
+ 
+        ikkuna.setJMenuBar(valikko);
     }
 }

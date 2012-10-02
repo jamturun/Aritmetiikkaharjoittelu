@@ -1,14 +1,17 @@
 package gui;
 
+import aritmetiikanharjoittelua.Harjoittelu;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class NappulanKuuntelija implements ActionListener {
 
     private GraafinenOhjelma ohjelma;
+    private Harjoittelu harjoittelu;
 
     public NappulanKuuntelija(GraafinenOhjelma ohjelma) {
         this.ohjelma = ohjelma;
+        
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -62,7 +65,10 @@ public class NappulanKuuntelija implements ActionListener {
         }
         if(nappula.getText().equals("Jatka")) {
             ohjelma.palautaAlkutilanne();
-            
+            ohjelma.harjoittele();
+            }
+        if(nappula.getText().equals("Lopeta")) {
+            ohjelma.mitaTehdaan();
         }
     }
 }
