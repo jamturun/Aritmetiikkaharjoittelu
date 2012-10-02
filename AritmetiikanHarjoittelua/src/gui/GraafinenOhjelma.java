@@ -2,6 +2,7 @@ package gui;
 
 import aritmetiikanharjoittelua.Harjoittelu;
 import aritmetiikanharjoittelua.Laskutoimitus;
+import aritmetiikanharjoittelua.Murtoluku;
 import java.util.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class GraafinenOhjelma implements Runnable {
     private boolean kokonaislukuvastaus = true;
     private int numerot;
     ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
+    private Murtoluku ratkaisu;
+    private Harjoittelu harjoittelu;
 
     public void run() {
 
@@ -91,55 +94,31 @@ public class GraafinenOhjelma implements Runnable {
         nappulat2 = new Container();
         nappulat2.setLayout(new FlowLayout());
 
-        JButton kylla = new JButton("Kyllä");
-        kylla.addActionListener(new NappulanKuuntelija(this));
-        kylla.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton kylla = teeNappi("Kyllä");
 
-        JButton ei = new JButton("Ei");
-        ei.addActionListener(new NappulanKuuntelija(this));
-        ei.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton ei = teeNappi("Ei");
 
-        JButton yksi = new JButton("1");
-        yksi.addActionListener(new NappulanKuuntelija(this));
-        yksi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton yksi = teeNappi("1");
 
-        JButton kaksi = new JButton("2");
-        kaksi.addActionListener(new NappulanKuuntelija(this));
-        kaksi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton kaksi = teeNappi("2");
 
-        JButton kolme = new JButton("3");
-        kolme.addActionListener(new NappulanKuuntelija(this));
-        kolme.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton kolme = teeNappi("3");
 
-        JButton nelja = new JButton("4");
-        nelja.addActionListener(new NappulanKuuntelija(this));
-        nelja.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton nelja = teeNappi("4");
 
-        viisi = new JButton("5");
-        viisi.addActionListener(new NappulanKuuntelija(this));
-        viisi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        viisi = teeNappi("5");
 
-        kuusi = new JButton("6");
-        kuusi.addActionListener(new NappulanKuuntelija(this));
-        kuusi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        kuusi = teeNappi("6");
 
-        seiska = new JButton("7");
-        seiska.addActionListener(new NappulanKuuntelija(this));
-        seiska.setAlignmentX(Component.LEFT_ALIGNMENT);
+        seiska = teeNappi("7");
 
-        kasi = new JButton("8");
-        kasi.addActionListener(new NappulanKuuntelija(this));
-        kasi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        kasi = teeNappi("8");
 
-        ysi = new JButton("9");
-        ysi.addActionListener(new NappulanKuuntelija(this));
-        ysi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ysi = teeNappi("9");
 
-        tarkista = new JButton("Tarkista");
-        tarkista.addActionListener(new NappulanKuuntelija(this));
-        
-        jatka = new JButton("Jatka");
-        jatka.addActionListener(new NappulanKuuntelija(this));
+        tarkista = teeNappi("Tarkista");
+
+        jatka = teeNappi("Jatka");
 
         nappulat1.add(kylla);
         nappulat1.add(ei);
@@ -272,24 +251,57 @@ public class GraafinenOhjelma implements Runnable {
 
     public void aloitaHarjoittelu() {
         otsikko.setText("Harjoittelu");
-        Harjoittelu harjoittelu = new Harjoittelu(arpoja, kokonaisluvut,
+        harjoittelu = new Harjoittelu(arpoja, kokonaisluvut,
                 negatiiviluvut, negatiivivastaus, kokonaislukuvastaus, numerot,
                 laskutoimitukset);
 
         kysymysboksi1.removeAll();
-        nappulat1.removeAll();
-        nappulat2.removeAll();
+        kysymysboksi2.removeAll();
+        pohja.remove(nappulat2);
 
         harjoittele(harjoittelu);
     }
 
-    public void tarkistaVastaus(Laskutoimitus tehtava) {
+    public void tarkistaVastaus() {
         if (kysymys1.getText().equals("Anna kokonaislukuvastaus")) {
-            int vastaus = Integer.parseInt(vastauskentta1.getText());
-            kysymysboksi1.removeAll();
-            vastauskentta1.removeAll();
-            if (vastaus == tehtava.laske().haeOsoittaja()) {
+            int vastaus = 0;
+            try {
+                vastaus = Integer.parseInt(vastauskentta1.getText());
+            } catch (Exception e) {
+                System.out.println("vituiks män");
+                System.exit(0);
+            }
+
+            vastauskentta1.setVisible(false);
+            lasku.setVisible(false);
+            tarkista.setVisible(false);
+
+            System.out.println("lolo lololo0 lolo");
+            if (vastaus == ratkaisu.haeOsoittaja()) {
                 kysymys1.setText("Oikein!");
+                pohja.add(jatka);
+            } else {
+                kysymys1.setText("Väärin!");
+                pohja.add(jatka);
+            }
+        } else {
+            int osoittajavastaus = Integer.parseInt(vastauskentta1.getText());
+            int nimittajavastaus = Integer.parseInt(vastauskentta2.getText());
+
+            kysymysboksi2.setVisible(false);
+            vastauskentta1.setVisible(false);
+            vastauskentta2.setVisible(false);
+            lasku.setVisible(false);
+            tarkista.setVisible(false);
+
+            if (osoittajavastaus == ratkaisu.haeOsoittaja()
+                    && nimittajavastaus == ratkaisu.haeNimittaja()) {
+                kysymysboksi1.setVisible(true);
+
+                kysymys1.setText("Oikein!");
+                pohja.add(jatka);
+            } else {
+                kysymys1.setText("Väärin!");
                 pohja.add(jatka);
             }
         }
@@ -300,6 +312,7 @@ public class GraafinenOhjelma implements Runnable {
             pohja.add(lasku);
             int toimitus = harjoittelu.arvoLaskutoimitus();
             Laskutoimitus tehtava = harjoittelu.arvoLasku(toimitus);
+            ratkaisu = tehtava.laske();
             lasku.setText(harjoittelu.toString(tehtava));
             pohja.add(kysymysboksi1);
             kysymysboksi1.add(kysymys1);
@@ -310,6 +323,7 @@ public class GraafinenOhjelma implements Runnable {
             pohja.add(lasku);
             int toimitus = harjoittelu.arvoLaskutoimitus();
             Laskutoimitus tehtava = harjoittelu.arvoLasku(toimitus);
+            ratkaisu = tehtava.laske();
             lasku.setText(harjoittelu.toString(tehtava));
             pohja.add(kysymysboksi1);
             kysymysboksi1.add(kysymys1);
@@ -320,5 +334,16 @@ public class GraafinenOhjelma implements Runnable {
             pohja.add(vastauskentta2);
             pohja.add(tarkista);
         }
+    }
+
+    private JButton teeNappi(String napinTeksti) {
+        JButton nappi = new JButton(napinTeksti);
+        nappi.addActionListener(new NappulanKuuntelija(this));
+        nappi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return nappi;
+    }
+    
+    public void palautaAlkutilanne() {
+        
     }
 }
