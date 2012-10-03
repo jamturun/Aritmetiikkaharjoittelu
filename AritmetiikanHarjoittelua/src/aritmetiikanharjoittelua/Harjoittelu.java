@@ -6,6 +6,10 @@ import java.util.*;
  *
  * @author Turunen Joonas
  * @version 1.1
+ * 
+ * Luokka, jonka ilmentymänä on Harjoittelu-olio. Tämä luokka muodostaa sovelluslogiikan
+ * rungon. Luokan sisällä tapahtuu laskutoimitusten arvonta käyttäjän valitsemin
+ * parametrein.
  *
  */
 public class Harjoittelu {
@@ -143,6 +147,20 @@ public class Harjoittelu {
     public Harjoittelu(Random arpoja, int numerot) {
         this.arpoja = arpoja;
         this.numerot = numerot;
+    }
+    
+    /**
+     * Vaihtoehtoinen konstruktori, jolle annetaan myös
+     * lista "väärin menneitä" laskutoimituksia.
+     * Käytetään ohjelman testaamiseen.
+     * 
+     * @param arpoja Satunnaislukugeneraattori
+     * @param vaarinMenneet Lista "väärin menneitä" laskutoimituksia
+     */
+    public Harjoittelu(Random arpoja,boolean kokonaisluvut, boolean negatiiviluvut,
+            boolean negatiivivastaus, boolean kokonaislukuvastaus, int numerot,
+            ArrayList<Laskutoimitus> vaarinMenneet, int turha) {
+        this.vaarinMenneet = vaarinMenneet;
     }
 
     /**
@@ -454,9 +472,9 @@ public class Harjoittelu {
      */
     public Laskutoimitus arvoLasku(int toimitus) {
 
-//        if (onVaikeaa()) {
-////            return arvoVaikea();
-//        } else {
+        if (onVaikeaa()) {
+            return arvoVaikea();
+        } else {
             switch (valitseTapaus()) {
                 case 0:
                     return arvoPositiiviTulosLaskuPositiiviLuvuilla(toimitus);
@@ -483,7 +501,7 @@ public class Harjoittelu {
                 default:
                     return arvoSatunnainenLasku(toimitus);
             }
-//        }
+        }
     }
 
     /**
@@ -504,6 +522,9 @@ public class Harjoittelu {
      * @return totuusarvo, onko väärin menneiden listalla yli 10 laskua
      */
     public boolean onVaikeaa() {
+        if(vaarinMenneet == null) {
+            return false;
+        }
         if (vaarinMenneet.size() > 10) {
             return true;
         } else {

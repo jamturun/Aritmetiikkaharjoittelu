@@ -8,6 +8,10 @@ import java.util.Random;
  * 
  * @author Turunen Joonas
  * @version 1.1
+ * 
+ * Testiluokka, joka luo Random-oliota matkivan olion. Testaaja voi tämän olion 
+ * avulla ennalta päättää, mitä lukuja testeissä esiintyvissä laskutoimituksissa
+ * esiintyy.
  */
 public class TestiRandom1 extends Random {
     

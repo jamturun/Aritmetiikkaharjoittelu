@@ -4,6 +4,9 @@
  * 
  * @author Turunen Joonas
  * @version 1.1
+ * 
+ * Luokka, jonka ilmentymänä on Murtoluku-olio. Tämän luokan tehtävänä on koota 
+ * murtoluku annetuista kokonaisluvuista.
  
  */
 public class Murtoluku {

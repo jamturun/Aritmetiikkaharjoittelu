@@ -4,6 +4,10 @@ package aritmetiikanharjoittelua;
  * 
  * @author jamturun
  * @version 1.1
+ * 
+ * Luokan tehtävänä on luoda Jakolasku-olio. Olion tietosisältönä on kaksi
+ * murtolukua. Luokassa määritetään myös, kuinka laskutoimitus lasketaan ja miten
+ * se esitetään tulosteissa.
  */
 public class Jakolasku implements Laskutoimitus {
 

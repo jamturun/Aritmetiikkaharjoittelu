@@ -6,6 +6,10 @@ import aritmetiikanharjoittelua.Murtoluku;
  * 
  * @author Turunen Joonas
  * @version 1.1
+ * 
+ * Luokan tehtävänä on luoda Yhteenlasku-olio. Olion tietosisältönä on kaksi
+ * murtolukua. Luokassa määritetään myös, kuinka laskutoimitus lasketaan ja miten
+ * se esitetään tulosteissa.
  */
 public class Yhteenlasku implements Laskutoimitus {
 

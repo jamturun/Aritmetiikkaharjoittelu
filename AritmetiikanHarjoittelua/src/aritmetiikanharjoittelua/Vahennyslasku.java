@@ -4,6 +4,10 @@ package aritmetiikanharjoittelua;
  *
  * @author Turunen Joonas
  * @version 1.1
+ * 
+ * Luokan tehtävänä on luoda Vähennyslasku-olio. Olion tietosisältönä on kaksi
+ * murtolukua. Luokassa määritetään myös, kuinka laskutoimitus lasketaan ja miten
+ * se esitetään tulosteissa.
  */
 public class Vahennyslasku implements Laskutoimitus {
 
