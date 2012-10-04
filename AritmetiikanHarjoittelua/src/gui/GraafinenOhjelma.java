@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
-
 /**
- * 
+ *
  * @author jamturun
  * @version 1.1
- * 
+ *
  * Graafinen käyttöliittymä
  */
 public class GraafinenOhjelma implements Runnable {
@@ -39,6 +38,7 @@ public class GraafinenOhjelma implements Runnable {
     private JButton lopeta;
     private JButton jatka;
     private JLabel otsikko;
+    private JLabel pisteet;
     private JLabel kysymys1;
     private JLabel kysymys2;
     private JLabel lasku;
@@ -52,22 +52,25 @@ public class GraafinenOhjelma implements Runnable {
     private Laskutoimitus tehtava;
     private Murtoluku ratkaisu;
     private Harjoittelu harjoittelu;
+    int laskurinArvo = 0;
 
     /**
      * Metodi käynnistää ohjelman.
      */
+    @Override
     public void run() {
 
         ikkuna = new JFrame("Aritmetiikan harjoittelua");
         ikkuna.setPreferredSize(new Dimension(500, 300));
 
+        alustaParametrit();
         luoKomponentit();
         luoValikko();
-        alustaParametrit();
 
         ikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ikkuna.pack();
         ikkuna.setVisible(true);
+        ikkuna.addKeyListener(new NappaimistonKuuntelija(this));
     }
 
     /**
@@ -117,8 +120,8 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     /**
-     * Metodi päivittää seuraavan tilanteen käyttäjän valitessa parametreja aiemmin
-     * valittujen parametrien mukaisesti.
+     * Metodi päivittää seuraavan tilanteen käyttäjän valitessa parametreja
+     * aiemmin valittujen parametrien mukaisesti.
      */
     public void paivitaSeuraavaTilanne() {
         while (true) {
@@ -217,8 +220,8 @@ public class GraafinenOhjelma implements Runnable {
     /**
      * Metodi tallentaa laskutoimitusten lukujen enimmäispituuden numeroina.
      * Käyttäjä valitsee numeron klikkaamalla sopivaa nappulaa.
-     * 
-     * @param numero Käyttäjän valitsema lukujen enimmäispituus 
+     *
+     * @param numero Käyttäjän valitsema lukujen enimmäispituus
      */
     public void tallennaNumerot(int numero) {
         numerot = numero;
@@ -246,10 +249,12 @@ public class GraafinenOhjelma implements Runnable {
      * Metodi aloittaa uuden harjoittelun.
      */
     public void aloitaHarjoittelu() {
-        if (laskutoimitukset.size() == 0) {
+        if (laskutoimitukset.isEmpty()) {
             laskutoimitukset.add(1);
         }
-        otsikko.setText("Harjoittelu");
+        otsikko.setText("Harjoittelu   ");
+        otsikkoboksi.add(pisteet);
+
         harjoittelu = new Harjoittelu(arpoja, kokonaisluvut,
                 negatiiviluvut, negatiivivastaus, kokonaislukuvastaus, numerot,
                 laskutoimitukset);
@@ -263,7 +268,7 @@ public class GraafinenOhjelma implements Runnable {
 
     /**
      * Tallentaa käyttäjän syöttämän vastauksen ensimmäisestä vastauskentästä.
-     * 
+     *
      * @return käyttäjän antama vastaus
      */
     public int oikeaMuotoinenVastaus1() {
@@ -280,7 +285,7 @@ public class GraafinenOhjelma implements Runnable {
 
     /**
      * Tallentaa käyttäjän syöttämän vastauksen toisesta vastauskentästä.
-     * 
+     *
      * @return käyttäjän antama vastaus
      */
     public int oikeaMuotoinenVastaus2() {
@@ -296,16 +301,16 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     /**
-     * Tarkistaa käyttäjän antaman vastauksen.
+     * Tarkistaa käyttäjän antaman vastauksen ja lisää tai vähentää pisteitä.
      */
     public void tarkistaVastaus() {
         if (kysymys1.getText().equals("Anna kokonaislukuvastaus")) {
             int vastaus = oikeaMuotoinenVastaus1();
             piilotaObjekteja();
 
-
             if (vastaus == ratkaisu.haeOsoittaja()) {
                 kysymys1.setText("Oikein!");
+                lisaaLukua();
                 pohja.add(jatka);
             } else {
                 kasitteleVaara();
@@ -323,6 +328,7 @@ public class GraafinenOhjelma implements Runnable {
                 kysymysboksi1.setVisible(true);
 
                 kysymys1.setText("Oikein!");
+                lisaaLukua();
                 pohja.add(jatka);
             } else {
                 kasitteleVaara();
@@ -352,10 +358,10 @@ public class GraafinenOhjelma implements Runnable {
 
     /**
      * Luo nappulan.
-     * 
+     *
      * @param napinTeksti Nappulaan tuleva teksti
-     * 
-     * @return luotu nappula 
+     *
+     * @return luotu nappula
      */
     private JButton teeNappi(String napinTeksti) {
         JButton nappi = new JButton(napinTeksti);
@@ -379,7 +385,7 @@ public class GraafinenOhjelma implements Runnable {
         lasku.setVisible(true);
         nappulat3.setVisible(true);
 
-        pohja.add(otsikko);
+        pohja.add(otsikkoboksi);
         pohja.add(lasku);
 
     }
@@ -396,6 +402,7 @@ public class GraafinenOhjelma implements Runnable {
         kysymysboksi1.setVisible(false);
         lasku.setVisible(false);
         otsikko.setText("Valitse uusi peli tai sulje ohjelma.");
+        pisteet.setText("");
     }
 
     /**
@@ -419,7 +426,8 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     /**
-     * Alustaa parametrit oletusarvoisiksi ennen uuden harjoittelun aloittamista.
+     * Alustaa parametrit oletusarvoisiksi ennen uuden harjoittelun
+     * aloittamista.
      */
     private void alustaParametrit() {
         laskutoimitukset.clear();
@@ -427,6 +435,7 @@ public class GraafinenOhjelma implements Runnable {
         negatiiviluvut = false;
         negatiivivastaus = false;
         kokonaislukuvastaus = true;
+        laskurinArvo = 0;
     }
 
     /**
@@ -445,6 +454,7 @@ public class GraafinenOhjelma implements Runnable {
 
     /**
      * Lisää nappuloita säiliöihin.
+     *
      * @param kylla Nappulan nimi
      * @param ei Nappulan nimi
      * @param yksi Nappulan nimi
@@ -485,6 +495,9 @@ public class GraafinenOhjelma implements Runnable {
         otsikko.setAlignmentX(Component.LEFT_ALIGNMENT);
         otsikkoboksi.add(otsikko);
 
+        pisteet = new JLabel("Pisteet: " + laskurinArvo);
+        pisteet.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
         kysymys1 = new JLabel("Yhteenlasku?");
         kysymys1.setAlignmentX(Component.LEFT_ALIGNMENT);
         kysymysboksi1.add(kysymys1);
@@ -495,6 +508,7 @@ public class GraafinenOhjelma implements Runnable {
 
         lasku = new JLabel("");
         lasku.setAlignmentX(Component.LEFT_ALIGNMENT);
+
     }
 
     /**
@@ -515,12 +529,13 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     /**
-     * Lisää väärin menneen laskun väärin menneiden laskujen listaan ja ilmoittaa
-     * käyttäjälle laskun menneen väärin.
+     * Lisää väärin menneen laskun väärin menneiden laskujen listaan ja
+     * ilmoittaa käyttäjälle laskun menneen väärin.
      */
     private void kasitteleVaara() {
         harjoittelu.lisaaVaikea(tehtava);
         kysymys1.setText("Väärin!");
+        vahennaLukua();
         pohja.add(jatka);
     }
 
@@ -537,6 +552,7 @@ public class GraafinenOhjelma implements Runnable {
      * Valmistelee näkymää harjoittelutilassa.
      */
     private void valmisteleNakyma() {
+
         pohja.add(lasku);
         int toimitus = harjoittelu.arvoLaskutoimitus();
         tehtava = harjoittelu.arvoLasku(toimitus);
@@ -553,5 +569,19 @@ public class GraafinenOhjelma implements Runnable {
     private void tyhjennaNappulat1() {
         nappulat1.removeAll();
         lisaaNappulat();
+    }
+
+    public void lisaaLukua() {
+        laskurinArvo++;
+        pisteet.setText("Pisteet: " + laskurinArvo);
+    }
+
+    public void vahennaLukua() {
+        laskurinArvo--;
+        pisteet.setText("Pisteet: " + laskurinArvo);
+    }
+    
+     public void suljePeli() {
+        ikkuna.dispose();
     }
 }
