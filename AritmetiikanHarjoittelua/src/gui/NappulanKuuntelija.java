@@ -70,5 +70,6 @@ public class NappulanKuuntelija implements ActionListener {
         if(nappula.getText().equals("Lopeta")) {
             ohjelma.mitaTehdaan();
         }
+        
     }
 }

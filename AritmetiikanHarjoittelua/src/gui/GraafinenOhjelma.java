@@ -3,10 +3,11 @@ package gui;
 import aritmetiikanharjoittelua.Harjoittelu;
 import aritmetiikanharjoittelua.Laskutoimitus;
 import aritmetiikanharjoittelua.Murtoluku;
-import java.util.*;
+import java.util.Calendar;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.*;
 
 /**
@@ -39,6 +40,7 @@ public class GraafinenOhjelma implements Runnable {
     private JButton jatka;
     private JLabel otsikko;
     private JLabel pisteet;
+    private JLabel aika;
     private JLabel kysymys1;
     private JLabel kysymys2;
     private JLabel lasku;
@@ -47,12 +49,15 @@ public class GraafinenOhjelma implements Runnable {
     private boolean negatiiviluvut;
     private boolean negatiivivastaus;
     private boolean kokonaislukuvastaus;
+    private boolean aikaraja;
     private int numerot;
     ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
     private Laskutoimitus tehtava;
     private Murtoluku ratkaisu;
     private Harjoittelu harjoittelu;
     int laskurinArvo = 0;
+    private Timer ajastin;
+    int aikalaskuri = 60;
 
     /**
      * Metodi käynnistää ohjelman.
@@ -66,6 +71,7 @@ public class GraafinenOhjelma implements Runnable {
         alustaParametrit();
         luoKomponentit();
         luoValikko();
+        ajastin = new Timer(1000, new AjastimenKuuntelija(this));
 
         ikkuna.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ikkuna.pack();
@@ -135,6 +141,9 @@ public class GraafinenOhjelma implements Runnable {
                 kysymys1.setText("Jakolasku?");
                 break;
             } else if (kysymys1.getText().equals("Jakolasku?")) {
+                otsikko.setText("Valitaan harjoittelumuoto.");
+                kysymys1.setText("Onko harjoittelussa aikaraja (60 s)?");
+            } else if (kysymys1.getText().equals("Onko harjoittelussa aikaraja (60 s)?")) {
                 otsikko.setText("Valitaan vaikeusaste.");
                 kysymys1.setText("Pelkät kokonaisluvut?");
             } else if (kysymys1.getText().equals("Pelkät kokonaisluvut?")) {
@@ -214,6 +223,11 @@ public class GraafinenOhjelma implements Runnable {
                 negatiivivastaus = true;
             }
         }
+        if (kysymys1.getText().equals("Onko harjoittelussa aikaraja (60 s)?")) {
+            if (valinta.equals("Kyllä")) {
+                aikaraja = true;
+            }
+        }
 
     }
 
@@ -254,6 +268,12 @@ public class GraafinenOhjelma implements Runnable {
         }
         otsikko.setText("Harjoittelu   ");
         otsikkoboksi.add(pisteet);
+        if (aikaraja) {
+            otsikkoboksi.add(aika);
+            ajastin.start();
+        } else {
+            aika.setVisible(false);
+        }
 
         harjoittelu = new Harjoittelu(arpoja, kokonaisluvut,
                 negatiiviluvut, negatiivivastaus, kokonaislukuvastaus, numerot,
@@ -352,7 +372,10 @@ public class GraafinenOhjelma implements Runnable {
             kysymysboksi2.add(kysymys2);
             pohja.add(vastauskentta2);
             pohja.add(nappulat3);
-
+        }
+        if (aikalaskuri == 0) {
+            ajastin.stop();
+            mitaTehdaan();
         }
     }
 
@@ -403,6 +426,8 @@ public class GraafinenOhjelma implements Runnable {
         lasku.setVisible(false);
         otsikko.setText("Valitse uusi peli tai sulje ohjelma.");
         pisteet.setText("");
+        ajastin.stop();
+        aika.setVisible(false);
     }
 
     /**
@@ -435,7 +460,9 @@ public class GraafinenOhjelma implements Runnable {
         negatiiviluvut = false;
         negatiivivastaus = false;
         kokonaislukuvastaus = true;
+        aikaraja = false;
         laskurinArvo = 0;
+        aikalaskuri = 60;
     }
 
     /**
@@ -495,8 +522,11 @@ public class GraafinenOhjelma implements Runnable {
         otsikko.setAlignmentX(Component.LEFT_ALIGNMENT);
         otsikkoboksi.add(otsikko);
 
-        pisteet = new JLabel("Pisteet: " + laskurinArvo);
+        pisteet = new JLabel("Pisteet: " + laskurinArvo + "   ");
         pisteet.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        aika = new JLabel("Aika: " + aikalaskuri);
+        aika.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         kysymys1 = new JLabel("Yhteenlasku?");
         kysymys1.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -573,15 +603,16 @@ public class GraafinenOhjelma implements Runnable {
 
     public void lisaaLukua() {
         laskurinArvo++;
-        pisteet.setText("Pisteet: " + laskurinArvo);
+        pisteet.setText("Pisteet: " + laskurinArvo + "   ");
     }
 
     public void vahennaLukua() {
         laskurinArvo--;
-        pisteet.setText("Pisteet: " + laskurinArvo);
+        pisteet.setText("Pisteet: " + laskurinArvo + "   ");
     }
-    
-     public void suljePeli() {
-        ikkuna.dispose();
+
+    public void vahennaAikaa() {
+        aikalaskuri--;
+        aika.setText("Aika: " + aikalaskuri);
     }
 }
