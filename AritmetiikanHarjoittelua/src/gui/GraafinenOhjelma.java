@@ -86,6 +86,7 @@ public class GraafinenOhjelma implements Runnable {
 
         pohja = ikkuna.getContentPane();
         pohja.setLayout(new BoxLayout(pohja, BoxLayout.Y_AXIS));
+        pohja.setBackground(Color.PINK);
 
         luoBoksit();
         luoJLabelit();
@@ -362,11 +363,13 @@ public class GraafinenOhjelma implements Runnable {
     public void harjoittele() {
         if (kokonaislukuvastaus) {
             valmisteleNakyma();
+            System.out.println(tehtava);
             kysymys1.setText("Anna kokonaislukuvastaus");
             pohja.add(nappulat3);
 
         } else {
             valmisteleNakyma();
+            System.out.println(tehtava);
             kysymys1.setText("Anna osoittaja");
             pohja.add(kysymysboksi2);
             kysymysboksi2.add(kysymys2);
@@ -564,6 +567,7 @@ public class GraafinenOhjelma implements Runnable {
      */
     private void kasitteleVaara() {
         harjoittelu.lisaaVaikea(tehtava);
+//        System.out.println(harjoittelu.haeVaarinMenneet());
         kysymys1.setText("Väärin!");
         vahennaLukua();
         pohja.add(jatka);

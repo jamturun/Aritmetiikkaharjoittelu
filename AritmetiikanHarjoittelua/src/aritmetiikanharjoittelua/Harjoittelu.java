@@ -6,10 +6,10 @@ import java.util.*;
  *
  * @author Turunen Joonas
  * @version 1.1
- * 
- * Luokka, jonka ilmentymänä on Harjoittelu-olio. Tämä luokka muodostaa sovelluslogiikan
- * rungon. Luokan sisällä tapahtuu laskutoimitusten arvonta käyttäjän valitsemin
- * parametrein.
+ *
+ * Luokka, jonka ilmentymänä on Harjoittelu-olio. Tämä luokka muodostaa
+ * sovelluslogiikan rungon. Luokan sisällä tapahtuu laskutoimitusten arvonta
+ * käyttäjän valitsemin parametrein.
  *
  */
 public class Harjoittelu {
@@ -49,7 +49,6 @@ public class Harjoittelu {
      * Satunnaislukugeneraattori
      */
     private Random arpoja;
-    
     /**
      * Lista, johon tallennetaan väärin menneet laskutoimitukset
      */
@@ -148,16 +147,15 @@ public class Harjoittelu {
         this.arpoja = arpoja;
         this.numerot = numerot;
     }
-    
+
     /**
-     * Vaihtoehtoinen konstruktori, jolle annetaan myös
-     * lista "väärin menneitä" laskutoimituksia.
-     * Käytetään ohjelman testaamiseen.
-     * 
+     * Vaihtoehtoinen konstruktori, jolle annetaan myös lista "väärin menneitä"
+     * laskutoimituksia. Käytetään ohjelman testaamiseen.
+     *
      * @param arpoja Satunnaislukugeneraattori
      * @param vaarinMenneet Lista "väärin menneitä" laskutoimituksia
      */
-    public Harjoittelu(Random arpoja,boolean kokonaisluvut, boolean negatiiviluvut,
+    public Harjoittelu(Random arpoja, boolean kokonaisluvut, boolean negatiiviluvut,
             boolean negatiivivastaus, boolean kokonaislukuvastaus, int numerot,
             ArrayList<Laskutoimitus> vaarinMenneet, int turha) {
         this.vaarinMenneet = vaarinMenneet;
@@ -518,11 +516,11 @@ public class Harjoittelu {
 
     /**
      * Tarkistaa, onko väärin menneiden laskujen listalla yli 10 laskua.
-     * 
+     *
      * @return totuusarvo, onko väärin menneiden listalla yli 10 laskua
      */
     public boolean onVaikeaa() {
-        if(vaarinMenneet == null) {
+        if (vaarinMenneet == null) {
             return false;
         }
         if (vaarinMenneet.size() > 10) {
@@ -533,10 +531,10 @@ public class Harjoittelu {
     }
 
     /**
-     * Arpoo laskun väärin menneiden laskujen listalta.
-     * Laskun arpomisen jälkeen kyseinen lasku poistetaan listalta.
-     * 
-     * @return aiemmin väärin mennyt lasku 
+     * Arpoo laskun väärin menneiden laskujen listalta. Laskun arpomisen jälkeen
+     * kyseinen lasku poistetaan listalta.
+     *
+     * @return aiemmin väärin mennyt lasku
      */
     public Laskutoimitus arvoVaikea() {
         Collections.shuffle(vaarinMenneet);
@@ -544,13 +542,17 @@ public class Harjoittelu {
         vaarinMenneet.remove(lasku);
         return lasku;
     }
-    
+
     /**
      * Lisää väärin menneen laskun väärin menneiden listalle.
-     * 
+     *
      * @param lasku Väärin mennyt lasku
      */
     public void lisaaVaikea(Laskutoimitus lasku) {
         vaarinMenneet.add(lasku);
+    }
+
+    public ArrayList<Laskutoimitus> haeVaarinMenneet() {
+        return vaarinMenneet;
     }
 }
