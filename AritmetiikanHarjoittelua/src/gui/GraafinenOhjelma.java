@@ -5,6 +5,8 @@ import aritmetiikanharjoittelua.Laskutoimitus;
 import aritmetiikanharjoittelua.Murtoluku;
 import java.util.Calendar;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -256,12 +258,12 @@ public class GraafinenOhjelma implements Runnable {
 
         } else {
             pohja.add(nappulat2);
-
         }
     }
 
     /**
-     * Metodi aloittaa uuden harjoittelun.
+     * Metodi aloittaa uuden harjoittelun. Metodi huolehtii lisäksi, että
+     * ainakin yksi laskutoimitus on valittu.
      */
     public void aloitaHarjoittelu() {
         if (laskutoimitukset.isEmpty()) {
@@ -298,8 +300,8 @@ public class GraafinenOhjelma implements Runnable {
         try {
             vastaus = Integer.parseInt(vastauskentta1.getText());
         } catch (Exception e) {
-            palautaAlkutilanne();
-            harjoittele();
+            vastaus = ratkaisu.haeOsoittaja() + 1;
+
         }
         return vastaus;
     }
@@ -315,8 +317,8 @@ public class GraafinenOhjelma implements Runnable {
         try {
             vastaus = Integer.parseInt(vastauskentta2.getText());
         } catch (Exception e) {
-            palautaAlkutilanne();
-            harjoittele();
+            vastaus = ratkaisu.haeNimittaja();
+
         }
         return vastaus;
     }
@@ -393,6 +395,7 @@ public class GraafinenOhjelma implements Runnable {
         JButton nappi = new JButton(napinTeksti);
         nappi.addActionListener(new NappulanKuuntelija(this));
         nappi.setAlignmentX(Component.LEFT_ALIGNMENT);
+        nappi.setFocusable(false);
         return nappi;
     }
 
@@ -421,14 +424,14 @@ public class GraafinenOhjelma implements Runnable {
      * sulkeeko ohjelman.
      */
     public void mitaTehdaan() {
+        nappulat1.setVisible(false);
         nappulat3.setVisible(false);
         vastauskentta2.setVisible(false);
         kysymysboksi2.setVisible(false);
         vastauskentta1.setVisible(false);
         kysymysboksi1.setVisible(false);
         lasku.setVisible(false);
-        otsikko.setText("Valitse uusi peli tai sulje ohjelma.");
-        pisteet.setText("");
+        otsikko.setText("Valitse uusi peli tai sulje ohjelma.   ");
         ajastin.stop();
         aika.setVisible(false);
     }
@@ -567,7 +570,7 @@ public class GraafinenOhjelma implements Runnable {
      */
     private void kasitteleVaara() {
         harjoittelu.lisaaVaikea(tehtava);
-//        System.out.println(harjoittelu.haeVaarinMenneet());
+        System.out.println(harjoittelu.haeVaarinMenneet());
         kysymys1.setText("Väärin!");
         vahennaLukua();
         pohja.add(jatka);
@@ -605,16 +608,25 @@ public class GraafinenOhjelma implements Runnable {
         lisaaNappulat();
     }
 
+    /**
+     * Lisää laskurin arvoa yhdellä oikean vastauksen jälkeen.
+     */
     public void lisaaLukua() {
         laskurinArvo++;
         pisteet.setText("Pisteet: " + laskurinArvo + "   ");
     }
 
+    /**
+     * Vähentää laskurin arvoa yhdellä väärän vastauksen jälkeen.
+     */
     public void vahennaLukua() {
         laskurinArvo--;
         pisteet.setText("Pisteet: " + laskurinArvo + "   ");
     }
 
+    /**
+     * Vähentää aikalaskurin lukemaa sekunnin välein.
+     */
     public void vahennaAikaa() {
         aikalaskuri--;
         aika.setText("Aika: " + aikalaskuri);

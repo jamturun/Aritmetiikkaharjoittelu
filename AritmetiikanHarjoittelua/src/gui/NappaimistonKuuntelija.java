@@ -15,14 +15,17 @@ public class NappaimistonKuuntelija implements KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
+
         if (e.getKeyCode() == 27) {
             ohjelma.mitaTehdaan();
-        } else if (e.getKeyCode() == 113) {
-            ohjelma.run();
-        } else if (e.getKeyCode() == 13) {
-            ohjelma.tarkistaVastaus();
         }
-
+        if (e.getKeyCode() == 113) {
+            ohjelma.mitaTehdaan();
+            ohjelma.run();
+        }
+        if (e.getKeyCode() == 81) {
+            System.exit(0);
+        }
     }
 
     public void keyReleased(KeyEvent e) {

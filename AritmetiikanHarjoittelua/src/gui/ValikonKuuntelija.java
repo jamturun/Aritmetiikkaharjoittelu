@@ -14,6 +14,7 @@ public class ValikonKuuntelija implements ActionListener {
     public void actionPerformed(ActionEvent tapahtuma) {
         String valinta = ((JMenuItem) tapahtuma.getSource()).getText();
         if (valinta.equals("Uusi peli")) {
+            ohjelma.mitaTehdaan();
             ohjelma.run();
         
         }
