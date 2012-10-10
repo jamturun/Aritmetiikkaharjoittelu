@@ -18,37 +18,45 @@ public class Harjoittelu {
      * Scanner-olio arvojen syöttämistä varten
      */
     public static Scanner input = new Scanner(System.in);
+    
     /**
      * Lista, joka sisältää harjoittelussa kysyttävät laskutoimitukset
      */
     private ArrayList<Integer> laskutoimitukset = new ArrayList<Integer>();
+    
     /**
      * Kertoo, sisältävätkö laskutoimitukset pelkkiä kokonaislukuja
      */
     private boolean pelkatKokonaisluvut;
+    
     /**
      * Kertoo, ovatko negatiiviset luvut mukana laskutoimituksissa
      */
     private boolean negatiiviLuvutMukana;
+    
     /**
      * Kertoo, sallitaanko arvottavan laskutoimituksen tulokseksi negatiivinen
      * vastaus
      */
     private boolean salliNegatiiviVastaus;
+    
     /**
      * Kertoo, sallitaanko vain laskutoimitukset, joiden tulos on kokonaisluku
      */
     private boolean vainKokonaislukuVastaus;
+    
     /**
      * Kertoo, kuinka monta numeroa laskutoimituksissa esiintyvissä
      * kokonaisluvuissa (sisältäen osoittajat ja nimittäjät) voi enimmillään
      * esiintyä
      */
     private int numerot;
+    
     /**
      * Satunnaislukugeneraattori
      */
     private Random arpoja;
+    
     /**
      * Lista, johon tallennetaan väärin menneet laskutoimitukset
      */
@@ -426,7 +434,7 @@ public class Harjoittelu {
      * @param eka Laskutoimituksen ensimmäinen jäsen
      * @param toka Laskutoimituksen toinen jäsen
      *
-     * @return laskutoimitus valmiissa muodossa tulostettuna
+     * @return laskutoimitus valmiissa muodossa
      */
     public Laskutoimitus kokoaLaskutoimitus(int toimitus, Murtoluku eka,
             Murtoluku toka) {

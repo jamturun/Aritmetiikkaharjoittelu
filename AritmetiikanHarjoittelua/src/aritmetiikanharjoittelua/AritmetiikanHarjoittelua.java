@@ -1,6 +1,6 @@
 package aritmetiikanharjoittelua;
 
-import gui.AritmetiikanHarjoitteluaUI;
+
 import gui.GraafinenOhjelma;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,6 +9,13 @@ import java.util.TreeMap;
 import javax.swing.*;
 import tekstikayttoliittyma.Tekstikayttoliittyma;
 
+/**
+ * 
+ * @author jamturun
+ * @version 1.1
+ * 
+ * Pääluokka, joka luo graafisen ohjelman.
+ */
 public class AritmetiikanHarjoittelua {
 
     public static Scanner input = new Scanner(System.in);

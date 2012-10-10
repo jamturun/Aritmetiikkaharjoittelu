@@ -64,7 +64,7 @@ public class NappulanKuuntelija implements ActionListener {
             ohjelma.tarkistaVastaus();
         }
         if(nappula.getText().equals("Jatka")) {
-            ohjelma.palautaAlkutilanne();
+            ohjelma.palautaVastaustila();
             ohjelma.harjoittele();
             }
         if(nappula.getText().equals("Lopeta")) {

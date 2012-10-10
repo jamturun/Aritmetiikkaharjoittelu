@@ -365,13 +365,11 @@ public class GraafinenOhjelma implements Runnable {
     public void harjoittele() {
         if (kokonaislukuvastaus) {
             valmisteleNakyma();
-            System.out.println(tehtava);
             kysymys1.setText("Anna kokonaislukuvastaus");
             pohja.add(nappulat3);
 
         } else {
             valmisteleNakyma();
-            System.out.println(tehtava);
             kysymys1.setText("Anna osoittaja");
             pohja.add(kysymysboksi2);
             kysymysboksi2.add(kysymys2);
@@ -402,7 +400,7 @@ public class GraafinenOhjelma implements Runnable {
     /**
      * Palauttaa harjoittelun käyttäjän vastaustilaan.
      */
-    public void palautaAlkutilanne() {
+    public void palautaVastaustila() {
         pohja.removeAll();
         vastauskentta1.setVisible(true);
         vastauskentta1.setText("");
@@ -609,7 +607,7 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     /**
-     * Lisää laskurin arvoa yhdellä oikean vastauksen jälkeen.
+     * Lisää pistelaskurin arvoa yhdellä oikean vastauksen jälkeen.
      */
     public void lisaaLukua() {
         laskurinArvo++;
@@ -617,7 +615,7 @@ public class GraafinenOhjelma implements Runnable {
     }
 
     /**
-     * Vähentää laskurin arvoa yhdellä väärän vastauksen jälkeen.
+     * Vähentää pistelaskurin arvoa yhdellä väärän vastauksen jälkeen.
      */
     public void vahennaLukua() {
         laskurinArvo--;
