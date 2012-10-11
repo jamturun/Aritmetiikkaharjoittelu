@@ -1,8 +1,7 @@
+package aritmetiikanharjoittelua;
 
-import aritmetiikanharjoittelua.Harjoittelu;
-import aritmetiikanharjoittelua.Murtoluku;
-import aritmetiikanharjoittelua.TestiRandom1;
-import java.util.ArrayList;
+
+
 import java.util.Random;
 import java.util.TreeMap;
 import org.junit.After;

@@ -1,5 +1,5 @@
 
-package aritmetiikanharjoittelua;
+package testirandomit;
 
 import java.util.ArrayList;
 import java.util.Random;

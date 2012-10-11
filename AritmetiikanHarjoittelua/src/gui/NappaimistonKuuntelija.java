@@ -21,6 +21,7 @@ public class NappaimistonKuuntelija implements KeyListener {
         }
         if (e.getKeyCode() == 113) {
             ohjelma.mitaTehdaan();
+            ohjelma.haeIkkuna().dispose();
             ohjelma.run();
         }
         if (e.getKeyCode() == 81) {

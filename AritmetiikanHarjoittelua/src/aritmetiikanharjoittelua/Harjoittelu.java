@@ -560,7 +560,5 @@ public class Harjoittelu {
         vaarinMenneet.add(lasku);
     }
 
-    public ArrayList<Laskutoimitus> haeVaarinMenneet() {
-        return vaarinMenneet;
-    }
+ 
 }

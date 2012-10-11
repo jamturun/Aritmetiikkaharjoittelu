@@ -3,9 +3,7 @@ package aritmetiikanharjoittelua;
 
 import gui.GraafinenOhjelma;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
-import java.util.TreeMap;
 import javax.swing.*;
 import tekstikayttoliittyma.Tekstikayttoliittyma;
 

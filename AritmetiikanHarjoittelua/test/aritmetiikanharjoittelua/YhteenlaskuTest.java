@@ -1,6 +1,6 @@
+package aritmetiikanharjoittelua;
 
-import aritmetiikanharjoittelua.Yhteenlasku;
-import aritmetiikanharjoittelua.Murtoluku;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

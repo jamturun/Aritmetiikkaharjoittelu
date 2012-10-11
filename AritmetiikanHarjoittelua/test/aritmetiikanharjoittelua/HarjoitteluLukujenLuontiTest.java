@@ -1,7 +1,8 @@
+package aritmetiikanharjoittelua;
 
-import aritmetiikanharjoittelua.Harjoittelu;
-import aritmetiikanharjoittelua.Murtoluku;
-import aritmetiikanharjoittelua.TestiRandom1;
+
+
+import testirandomit.TestiRandom1;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

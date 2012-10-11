@@ -1,13 +1,7 @@
+package aritmetiikanharjoittelua;
 
-import aritmetiikanharjoittelua.Harjoittelu;
-import aritmetiikanharjoittelua.TestiRandom1;
-import aritmetiikanharjoittelua.TestiRandom2;
-import aritmetiikanharjoittelua.Yhteenlasku;
-import aritmetiikanharjoittelua.Vahennyslasku;
-import aritmetiikanharjoittelua.Kertolasku;
-import aritmetiikanharjoittelua.Jakolasku;
-import aritmetiikanharjoittelua.Laskutoimitus;
-import aritmetiikanharjoittelua.Murtoluku;
+
+import testirandomit.TestiRandom2;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

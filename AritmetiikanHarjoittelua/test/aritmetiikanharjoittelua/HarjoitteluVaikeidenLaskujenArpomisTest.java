@@ -1,11 +1,7 @@
+package aritmetiikanharjoittelua;
 
-import aritmetiikanharjoittelua.Harjoittelu;
-import aritmetiikanharjoittelua.Jakolasku;
-import aritmetiikanharjoittelua.Kertolasku;
-import aritmetiikanharjoittelua.Laskutoimitus;
-import aritmetiikanharjoittelua.Murtoluku;
-import aritmetiikanharjoittelua.Vahennyslasku;
-import aritmetiikanharjoittelua.Yhteenlasku;
+
+
 import java.util.ArrayList;
 import java.util.Random;
 import org.junit.After;

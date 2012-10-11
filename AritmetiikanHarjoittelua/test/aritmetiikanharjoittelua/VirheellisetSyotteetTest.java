@@ -1,6 +1,7 @@
+package aritmetiikanharjoittelua;
 
-import aritmetiikanharjoittelua.Harjoittelu;
-import aritmetiikanharjoittelua.Laskutoimitus;
+
+
 import java.util.ArrayList;
 import java.util.Random;
 import org.junit.After;

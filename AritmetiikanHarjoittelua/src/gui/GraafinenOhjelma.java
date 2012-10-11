@@ -5,8 +5,6 @@ import aritmetiikanharjoittelua.Laskutoimitus;
 import aritmetiikanharjoittelua.Murtoluku;
 import java.util.Calendar;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,7 +14,7 @@ import javax.swing.*;
  *
  * @author jamturun
  * @version 1.1
- *
+ *ewqe
  * Graafinen käyttöliittymä
  */
 public class GraafinenOhjelma implements Runnable {
@@ -429,7 +427,7 @@ public class GraafinenOhjelma implements Runnable {
         vastauskentta1.setVisible(false);
         kysymysboksi1.setVisible(false);
         lasku.setVisible(false);
-        otsikko.setText("Valitse uusi peli tai sulje ohjelma.   ");
+        otsikko.setText("Valitse uusi harjoittelu tai sulje ohjelma.   ");
         ajastin.stop();
         aika.setVisible(false);
     }
@@ -440,10 +438,10 @@ public class GraafinenOhjelma implements Runnable {
     private void luoValikko() {
         JMenuBar valikko = new JMenuBar();
 
-        JMenu valikkoPeli = new JMenu("Peli");
+        JMenu valikkoPeli = new JMenu("Harjoittelu");
         valikko.add(valikkoPeli);
 
-        JMenuItem valikkoUusi = new JMenuItem("Uusi peli");
+        JMenuItem valikkoUusi = new JMenuItem("Uusi harjoittelu");
         valikkoUusi.addActionListener(new ValikonKuuntelija(this));
         valikkoPeli.add(valikkoUusi);
 
@@ -568,7 +566,6 @@ public class GraafinenOhjelma implements Runnable {
      */
     private void kasitteleVaara() {
         harjoittelu.lisaaVaikea(tehtava);
-        System.out.println(harjoittelu.haeVaarinMenneet());
         kysymys1.setText("Väärin!");
         vahennaLukua();
         pohja.add(jatka);
@@ -628,5 +625,14 @@ public class GraafinenOhjelma implements Runnable {
     public void vahennaAikaa() {
         aikalaskuri--;
         aika.setText("Aika: " + aikalaskuri);
+    }
+
+    /**
+     * Palauttaa ikkunan näppäimistön- ja valikonkuuntelijoita varten.
+     *
+     * @return ikkuna
+     */
+    public JFrame haeIkkuna() {
+        return ikkuna;
     }
 }

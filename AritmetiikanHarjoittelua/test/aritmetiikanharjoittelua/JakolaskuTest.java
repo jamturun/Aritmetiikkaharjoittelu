@@ -1,7 +1,8 @@
+package aritmetiikanharjoittelua;
 
 
-import aritmetiikanharjoittelua.Jakolasku;
-import aritmetiikanharjoittelua.Murtoluku;
+
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
